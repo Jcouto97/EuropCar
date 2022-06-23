@@ -24,9 +24,9 @@ public class Rental {
     //@JoinColumn(name = "userId", referencedColumnName = "id")
     //private User user;
 
-    //@ManyToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "vehicleId", referencedColumnName = "id")
-    //private Vehicle vehicle;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "vehicleId", referencedColumnName = "id")
+    private Vehicle vehicle;
 
     private LocalDate rentDate;
     private LocalDate returnDate;

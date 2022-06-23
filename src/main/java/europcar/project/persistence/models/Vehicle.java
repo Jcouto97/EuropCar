@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,9 +27,9 @@ public class Vehicle {
     @Column(nullable = false, unique = true, updatable = false)
     private String licensePlate;
 
-   /* @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    private Rentals rentalId; */
+    private List<Rental> rentals;
 
     private String type; //car/motorbike/boat, etc
     private String model;
