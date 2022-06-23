@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode
 @Entity
 @Table(name = "rentals")
-public class Rentals {
+public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, unique = true, updatable = false)

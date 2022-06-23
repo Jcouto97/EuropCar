@@ -19,20 +19,21 @@ public class VehicleController {
 
     private final VehicleServiceI vehicleServiceI;
 
-@Autowired
+    @Autowired
     public VehicleController(VehicleServiceI vehicleServiceI) {
         this.vehicleServiceI = vehicleServiceI;
     }
+
     @GetMapping
-    public List<Vehicle> getVehicles() {return this.vehicleServiceI.getVehicles();}
+    public List<Vehicle> getVehicles() {
+        return this.vehicleServiceI.getVehicles();
+    }
 
     @GetMapping("/{id}")
-    public ResponseEntity<VehicleDto> getVehicleById(@PathVariable("id") Long id){
-    VehicleDto vehicleDto = this.vehicleServiceI.getVehicleById(id);
+    public ResponseEntity<VehicleDto> getVehicleById(@PathVariable("id") Long id) {
+        VehicleDto vehicleDto = this.vehicleServiceI.getVehicleById(id);
 
-    if(vehicleDto == null) {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-    return new ResponseEntity<>(vehicleDto, HttpStatus.OK);
+        if (vehicleDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(vehicleDto, HttpStatus.OK);
     }
 }

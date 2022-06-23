@@ -2,15 +2,11 @@ package europcar.project.converters;
 
 import java.util.List;
 
-public interface ConvertersI<Entity, Dto, UpdateDto> {
+public interface DtoConvertersI<Entity, Dto> {
 
     Dto entityToDto(Entity entity);
 
     Entity dtoToEntity(Dto dto);
-
-    UpdateDto entityToUpdateDto(Entity entity);
-
-    Entity updateDtoToEntity(UpdateDto update);
 
     List<Dto> convertEntityListToDtoList(List<Entity> entityList);
 
