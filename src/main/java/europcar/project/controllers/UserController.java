@@ -28,9 +28,9 @@ public class UserController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @DeleteMapping(path = "{UserId}")
-    public ResponseEntity<UserDto> deleteUser(@PathVariable("UserId") Long userId){
-        UserDto userDeleted = this.userServiceI.deleteUser(userId);
-        return new ResponseEntity<>(userDeleted, HttpStatus.OK);
-    }
+//    @DeleteMapping(path = "{UserId}")
+//    public ResponseEntity<UserDto> deleteUser(@PathVariable("UserId") Long userId){
+//        UserDto userDeleted = this.userServiceI.deleteUser(userId);
+//        return new ResponseEntity<>(userDeleted, HttpStatus.OK);
+//    }
 }

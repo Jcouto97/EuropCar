@@ -10,5 +10,5 @@ public interface UserServiceI {
 
     UserDto signUp(UserDto userDto);
 
-    UserDto deleteUser(Long userId);
+//    UserDto deleteUser(Long userId);
 }

@@ -31,14 +31,14 @@ public class UserServiceImp implements UserServiceI{
         return userConverterImp.entityToDto(userToSave);
     }
 
-    @Override
-    public UserDto deleteUser(Long userId) {
-        User userToDelete = userRepository.findById(userId).orElse(null);
-
-        this.userRepository.deleteById(userId);
-
-        return userConverterImp.entityToDto(userToDelete);
-    }
+//    @Override
+//    public UserDto deleteUser(Long userId) {
+//        User userToDelete = userRepository.findById(userId).orElse(null);
+//
+//        this.userRepository.deleteById(userId);
+//
+//        return userConverterImp.entityToDto(userToDelete);
+//    }
 
 
 }
