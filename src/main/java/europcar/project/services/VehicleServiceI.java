@@ -9,5 +9,7 @@ public interface VehicleServiceI {
     
     List<Vehicle> getVehicles();
 
-    VehicleDto getVehicleById(Long id);
+    VehicleDto getVehicleById(Long id) throws Throwable;
+
+    VehicleDto addVehicle(VehicleDto vehicleDto);
 }
