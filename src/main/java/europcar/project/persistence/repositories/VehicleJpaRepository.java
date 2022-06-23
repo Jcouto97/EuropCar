@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface VehicleJpaRepository extends JpaRepository<Vehicle, Long> {
-    
+
+
 
 }
