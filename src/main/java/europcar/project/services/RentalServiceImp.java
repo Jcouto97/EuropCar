@@ -47,8 +47,8 @@ public class RentalServiceImp implements RentalServiceI {
     public RentalDto updateRental(Long id, RentalDto rentalDto) {
         Rental rental = this.repository.findById(id).orElseThrow(() ->
                 new RentalNotFoundException(RENTAL_NOT_FOUND));
-        Rental updatedRental = this.converter.updateDtoToEntity(rentalDto, rental);
-        return this.converter.entityToUpdateDto(
+        Rental updatedRental = this.converter.dtoToEntity(rentalDto, rental);
+        return this.converter.entityToDto(
                 this.repository.save(updatedRental));
     }
 }

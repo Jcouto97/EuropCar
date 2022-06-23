@@ -1,7 +1,6 @@
 package europcar.project.services;
 
 import europcar.project.command.RentalDto;
-import europcar.project.command.RentalUpdateDto;
 
 import java.util.List;
 

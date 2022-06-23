@@ -1,9 +1,15 @@
 package europcar.project.command;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import java.time.LocalDate;
-
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class RentalDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;

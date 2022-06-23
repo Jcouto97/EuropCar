@@ -1,7 +1,6 @@
 package europcar.project.controllers;
 
 import europcar.project.command.RentalDto;
-import europcar.project.command.RentalUpdateDto;
 import europcar.project.services.RentalServiceI;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
