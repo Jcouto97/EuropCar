@@ -1,7 +1,10 @@
 package europcar.project.services;
 
-public interface RentalServiceI {
-    String getString();
+import europcar.project.command.RentalsDto;
+import org.springframework.http.ResponseEntity;
 
-    String postString(String name);
+import java.util.List;
+
+public interface RentalServiceI {
+    List<RentalsDto> getRentals();
 }

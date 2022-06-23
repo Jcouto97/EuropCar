@@ -15,7 +15,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/vehicles")
-
 public class VehicleController {
 
     private final VehicleServiceI vehicleServiceI;

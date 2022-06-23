@@ -20,13 +20,13 @@ public class Rentals {
     @Column(nullable = false, unique = true, updatable = false)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId", referencedColumnName = "id")
-    private User user;
+    //@ManyToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "userId", referencedColumnName = "id")
+    //private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "vehicleId", referencedColumnName = "id")
-    private Vehicle vehicle;
+    //@ManyToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "vehicleId", referencedColumnName = "id")
+    //private Vehicle vehicle;
 
     private LocalDate rentDate;
     private LocalDate returnDate;
