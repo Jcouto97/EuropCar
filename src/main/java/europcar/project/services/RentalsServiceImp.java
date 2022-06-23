@@ -13,4 +13,11 @@ public class RentalsServiceImp implements RentalServiceI{
     public String getString() {
         return jpaRepository.getString();
     }
+
+    @Override
+    public String postString(String name) {
+        jpaRepository.setString(name);
+        return jpaRepository.getString();
+    }
+
 }

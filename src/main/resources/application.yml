@@ -10,7 +10,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
     hibernate:
-      ddl-auto: ${HIBERNATE_DDL_AUTO:update}
+      ddl-auto: ${HIBERNATE_DDL_AUTO:create-drop}
+#      no final update
       show-sql: true
   datasource:
     url: ${MARIADB_URL:jdbc:mysql://localhost:3306/lms}

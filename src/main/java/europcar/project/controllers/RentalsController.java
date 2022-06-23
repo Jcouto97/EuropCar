@@ -16,4 +16,9 @@ public class RentalsController {
     public String getString(@PathVariable("name") String name){
         return  rentalServiceI.getString() + name;
     }
+
+    @PostMapping
+    public String postString(@RequestBody String name){
+        return rentalServiceI.postString(name);
+    }
 }
