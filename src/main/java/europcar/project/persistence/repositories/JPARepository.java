@@ -1,21 +1,6 @@
 package europcar.project.persistence.repositories;
 
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.ArrayList;
-
-@Repository
-
-public class JPARepository {
-
-    private String string = "HELLO";
-
-    public String getString() {
-        return string;
-    }
-
-    public void setString(String string) {
-        this.string = string;
-    }
+public interface JPARepository<U, L extends Number> extends JpaRepository{
 }

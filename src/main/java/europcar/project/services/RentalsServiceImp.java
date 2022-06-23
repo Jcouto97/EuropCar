@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class RentalsServiceImp implements RentalServiceI{
-    private JPARepository jpaRepository;
+    private JPARepository<U, Number> jpaRepository;
 
     @Override
     public String getString() {
