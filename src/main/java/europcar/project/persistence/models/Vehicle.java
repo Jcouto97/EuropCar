@@ -26,9 +26,9 @@ public class Vehicle {
     @Column(nullable = false, unique = true, updatable = false)
     private String licensePlate;
 
-    @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY,
+   /* @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    private Long rentalId;
+    private Rentals rentalId; */
 
     private String type; //car/motorbike/boat, etc
     private String model;
