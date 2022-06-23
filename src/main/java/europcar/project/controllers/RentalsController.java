@@ -20,4 +20,9 @@ public class RentalsController {
     public ResponseEntity<List<RentalsDto>> getRentals() {
         return new ResponseEntity<>(this.rentalServiceI.getRentals(), HttpStatus.OK);
     }
+
+    @PostMapping
+    public ResponseEntity<RentalsDto> addRental(@RequestBody RentalsDto rentalsDto) {
+        return new ResponseEntity<>(this.rentalServiceI.addRental(rentalsDto), HttpStatus.OK);
+    }
 }

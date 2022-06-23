@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface RentalServiceI {
     List<RentalsDto> getRentals();
+
+    RentalsDto addRental(RentalsDto rentalsDto);
 }
