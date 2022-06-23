@@ -14,6 +14,6 @@ spring:
 #      no final update
       show-sql: true
   datasource:
-    url: ${MARIADB_URL:jdbc:mysql://localhost:3306/lms}
+    url: ${MARIADB_URL:jdbc:mysql://localhost:3306/EuropCar}
     username: ${MARIADB_USER:root}
     password: ${MARIADB_PASSWORD:rootPassword}
