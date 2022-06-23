@@ -11,14 +11,4 @@ import org.springframework.web.bind.annotation.*;
 public class RentalsController {
     private RentalServiceI rentalServiceI;
 
-
-    @GetMapping("/{name}")
-    public String getString(@PathVariable("name") String name){
-        return  rentalServiceI.getString() + name;
-    }
-
-    @PostMapping
-    public String postString(@RequestBody String name){
-        return rentalServiceI.postString(name);
-    }
 }
