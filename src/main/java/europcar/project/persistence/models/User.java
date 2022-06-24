@@ -20,6 +20,7 @@ import java.util.Set;
 
 public class User {
 //commit
+    //sdsf
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true, updatable = false)
@@ -41,7 +42,7 @@ public class User {
     @JsonIgnore //para problema de recursividade
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    private Set<Rentals> rentals = new HashSet<>();
+    private Set<Rental> rentals = new HashSet<>();
 
     //metodo no controller para vir buscar aqui ao user
 
