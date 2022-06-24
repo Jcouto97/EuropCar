@@ -1,6 +1,7 @@
 package europcar.project.services;
 
 import europcar.project.command.VehicleDto;
+import europcar.project.command.VehicleUpdateDto;
 import europcar.project.converters.VehicleConverterImpl;
 import europcar.project.persistence.models.Vehicle;
 
@@ -32,5 +33,12 @@ public class VehicleServiceImp implements VehicleServiceI {
     public VehicleDto addVehicle(VehicleDto vehicleDto) {
        Vehicle vehicle = vehicleConverter.dtoToEntity(vehicleDto);
        return vehicleConverter.entityToDto(vehicleJpaRepository.save(vehicle));
+    }
+
+    @Override
+    public VehicleDto updateVehicle(Long id, VehicleUpdateDto vehicleUpdateDto) {
+       Vehicle vehicle =  vehicleConverter.updateDtoToEntity(vehicleUpdateDto, vehicleJpaRepository.findById(id).get());
+
+        return vehicleConverter.entityToDto(vehicleJpaRepository.save(vehicle));
     }
 }
