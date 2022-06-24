@@ -13,7 +13,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(path = "/api/v1/student")
+@RequestMapping(path = "/api/v1/users")
 public class UserController {
     private UserServiceI userServiceI;
 
@@ -28,9 +28,9 @@ public class UserController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-//    @DeleteMapping(path = "{UserId}")
-//    public ResponseEntity<UserDto> deleteUser(@PathVariable("UserId") Long userId){
-//        UserDto userDeleted = this.userServiceI.deleteUser(userId);
-//        return new ResponseEntity<>(userDeleted, HttpStatus.OK);
-//    }
+    @DeleteMapping(path = "{UserId}")
+    public ResponseEntity<UserDto> deleteUser(@PathVariable("UserId") Long userId){
+        UserDto userDeleted = this.userServiceI.deleteUser(userId);
+        return new ResponseEntity<>(userDeleted, HttpStatus.OK);
+    }
 }

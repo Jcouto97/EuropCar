@@ -16,6 +16,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
+@ToString
 
 
 public class UserDto {
