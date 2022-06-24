@@ -1,6 +1,7 @@
 package europcar.project.persistence.models;
 
 import lombok.*;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,11 +22,11 @@ public class Rental {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId", referencedColumnName = "id")
+    @JoinColumn(name = "userIdFk", referencedColumnName = "id")
     private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "vehicleId", referencedColumnName = "id")
+    @JoinColumn(name = "vehicleIdFk", referencedColumnName = "id")
     private Vehicle vehicle;
 
     private LocalDate rentDate;

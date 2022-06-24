@@ -16,7 +16,7 @@ import java.util.Set;
 @Builder
 @ToString
 @EqualsAndHashCode
-@Table(name = "Users")
+@Table(name = "users")
 
 public class User {
 //commit
@@ -44,6 +44,4 @@ public class User {
 //    private Set<Rental> rentals = new HashSet<>();
 
     //metodo no controller para vir buscar aqui ao user
-
 }
-

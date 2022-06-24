@@ -1,6 +1,7 @@
 package europcar.project.persistence.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,7 +17,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @Entity
-@Table(name = "vehicle")
+@Table(name = "vehicles")
 
 public class Vehicle {
     @Id
@@ -30,7 +31,8 @@ public class Vehicle {
     @Size(min = 2, message = "License plate should have at least 2 characters")
     private String licensePlate;
 
-//    @OneToMany(mappedBy = "vehicleId", fetch = FetchType.LAZY,
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY,
 //            cascade = CascadeType.ALL)
 //    private List<Rental> rentals;
 

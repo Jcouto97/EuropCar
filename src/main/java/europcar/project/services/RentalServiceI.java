@@ -15,4 +15,6 @@ public interface RentalServiceI {
     void deleteRental(Long id);
 
     RentalUpdateDto updateRental(Long id, RentalUpdateDto rentalUpdateDto);
+
+    List<RentalDto> getRentalByUser(Long id);
 }

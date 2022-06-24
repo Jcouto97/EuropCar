@@ -1,6 +1,8 @@
 package europcar.project.command;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import europcar.project.persistence.models.User;
+import europcar.project.persistence.models.Vehicle;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -14,14 +16,8 @@ import java.time.LocalDate;
 public class RentalUpdateDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
-
-    //@ManyToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "userId", referencedColumnName = "id")
-    //private User user;
-
-    //@ManyToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "vehicleId", referencedColumnName = "id")
-    //private Vehicle vehicle;
+    private User user;
+    private Vehicle vehicle;
     private LocalDate rentDate;
     private LocalDate returnDate;
     private int missingFuelPrice;

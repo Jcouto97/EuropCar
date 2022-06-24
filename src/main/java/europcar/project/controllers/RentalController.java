@@ -25,6 +25,11 @@ public class RentalController {
         return this.rentalServiceI.getRentalById(id);
     }
 
+    @GetMapping("clientid/{id}")
+    public List<RentalDto> getRentalsByUser(@PathVariable("id") Long id) {
+        return this.rentalServiceI.getRentalByUser(id);
+    }
+
     @PostMapping
     public RentalDto addRental(@Valid @RequestBody RentalDto rentalDto) {
         return this.rentalServiceI.addRental(rentalDto);

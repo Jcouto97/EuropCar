@@ -30,6 +30,11 @@ public class RentalServiceImp implements RentalServiceI {
                         new RentalNotFoundException(RENTAL_NOT_FOUND)));
     }
 
+    public List<RentalDto> getRentalByUser(Long id) {
+        return this.converter.convertEntityListToDtoList(
+                this.repository.findByUser(id));
+    }
+
     @Override
     public RentalDto addRental(RentalDto rentalsDto) {
         return this.converter.entityToDto(
