@@ -25,9 +25,9 @@ public class VehicleDto {
     private String type; //car/motorbike/boat, etc
     private String model;
     private String color;
+    private Long numOfSeats;
     private LocalDate productionDate;// 2022-06-13
     private LocalDate registrationDate = LocalDate.of(2022, Month.JUNE, 23);
-    private String avatarUrl;
 
 
 }

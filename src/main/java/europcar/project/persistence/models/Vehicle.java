@@ -37,7 +37,7 @@ public class Vehicle {
     private String type; //car/motorbike/boat, etc
     private String model;
     private String color;
+    private Long numOfSeats;
     private LocalDate productionDate;// 2022-06-13
     private LocalDate registrationDate;// 2022-06-13
-    private String avatarUrl;
 }
