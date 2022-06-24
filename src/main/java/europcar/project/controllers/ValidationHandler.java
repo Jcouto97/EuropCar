@@ -1,6 +1,8 @@
 package europcar.project.controllers;
 
 import europcar.project.exceptions.RentalNotFoundException;
+import europcar.project.exceptions.UserAlreadyExists;
+import europcar.project.exceptions.UserNotFoundException;
 import europcar.project.exceptions.VehicleNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,8 +14,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.RESOURCE_ALREADY_EXISTS;
+import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.USER_NOT_FOUND;
 
 @ControllerAdvice
 public class ValidationHandler extends ResponseEntityExceptionHandler {
@@ -31,8 +37,16 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = {RentalNotFoundException.class, VehicleNotFoundException.class})
+    @ExceptionHandler(value = {RentalNotFoundException.class, VehicleNotFoundException.class,
+            UserNotFoundException.class, UserAlreadyExists.class})
     protected ResponseEntity<Object> notFoundHandler(RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
+
+    @ExceptionHandler(value = {SQLIntegrityConstraintViolationException.class})
+    protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
+        String bodyOfResponse = RESOURCE_ALREADY_EXISTS;
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
+
 }

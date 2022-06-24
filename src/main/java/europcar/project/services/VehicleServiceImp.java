@@ -3,7 +3,7 @@ package europcar.project.services;
 import europcar.project.command.VehicleDto;
 import europcar.project.command.VehicleUpdateDto;
 import europcar.project.converters.VehicleConverterImpl;
-import europcar.project.exceptions.VehicleNotFoundException;
+import europcar.project.exceptions.*;
 import europcar.project.persistence.models.Vehicle;
 
 import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.*;
@@ -26,13 +26,23 @@ public class VehicleServiceImp implements VehicleServiceI {
     }
 
     public VehicleDto getVehicleById(Long id) {
-        Vehicle vehicleById = this.vehicleJpaRepository.findById(id).get();
+        Vehicle vehicleById = this.vehicleJpaRepository.findById(id)
+                .orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND));
         return this.vehicleConverter.entityToDto(vehicleById);
     }
 
     @Override
-    public VehicleDto getVehicleByModel(String model) {
-        return null;
+    public List <VehicleDto> getVehicleByModel(String model) {
+        List <Vehicle> vehicleByModel = this.vehicleJpaRepository.findByModel(model);
+        if(vehicleByModel.isEmpty()) throw new VehicleNotFoundException(VEHICLE_NOT_FOUND);
+        return this.vehicleConverter.convertEntityListToDtoList(vehicleByModel);
+    }
+
+    @Override
+    public List<VehicleDto> getVehicleByType(String type) {
+        List <Vehicle> vehicleByType = this.vehicleJpaRepository.findByType(type);
+        if(vehicleByType.isEmpty()) throw new VehicleNotFoundException(VEHICLE_NOT_FOUND);
+        return this.vehicleConverter.convertEntityListToDtoList(vehicleByType);
     }
 
     public VehicleDto addVehicle(VehicleDto vehicleDto) {

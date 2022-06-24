@@ -28,18 +28,23 @@ public class VehicleController {
     @GetMapping("byId/{id}")
     public ResponseEntity<VehicleDto> getVehicleById(@PathVariable("id") Long id) throws Throwable {
     VehicleDto vehicleDto = this.vehicleServiceI.getVehicleById(id);
-
-        if (vehicleDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(vehicleDto, HttpStatus.OK);
     }
 
     @GetMapping("byModel/{model}")
-    public ResponseEntity<VehicleDto> getVehicleById(@PathVariable("model") String model) throws Throwable {
-        VehicleDto vehicleDto = this.vehicleServiceI.getVehicleByModel(model);
-
-        if (vehicleDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<List <VehicleDto>> getVehicleByModel(@PathVariable("model") String model) throws Throwable {
+        List <VehicleDto> vehicleDto = this.vehicleServiceI.getVehicleByModel(model);
         return new ResponseEntity<>(vehicleDto, HttpStatus.OK);
     }
+
+    @GetMapping("{type}")
+    public ResponseEntity<List <VehicleDto>> getVehicleByType(@PathVariable("type") String type) throws Throwable {
+        List <VehicleDto> vehicleDto = this.vehicleServiceI.getVehicleByType(type);
+        return new ResponseEntity<>(vehicleDto, HttpStatus.OK);
+    }
+
+
+
     @PostMapping
     public ResponseEntity<VehicleDto> addNewVehicle(@RequestBody VehicleDto requestVehicleDto) {
         VehicleDto responseVehicleDto = this.vehicleServiceI.addVehicle(requestVehicleDto);
