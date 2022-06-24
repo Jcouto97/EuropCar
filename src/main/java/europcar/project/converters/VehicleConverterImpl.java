@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 public class VehicleConverterImpl implements DtoConvertersI<Vehicle, VehicleDto> {
     private final ModelMapper MODEL_MAPPER;
 
-    private final static ModelMapper MODEL_MAPPER = new ModelMapper();
     @Override
     public VehicleDto entityToDto(Vehicle vehicle) {
         return MODEL_MAPPER.map(vehicle, VehicleDto.class);
@@ -39,9 +38,9 @@ public class VehicleConverterImpl implements DtoConvertersI<Vehicle, VehicleDto>
 
     @Override
     public List<VehicleDto> convertEntityListToDtoList(List<Vehicle> vehicles) {
-      return vehicles.stream()
-               .map(vehicle -> MODEL_MAPPER.map(vehicle, VehicleDto.class))
-              .collect(Collectors.toList());
+        return vehicles.stream()
+                .map(vehicle -> MODEL_MAPPER.map(vehicle, VehicleDto.class))
+                .collect(Collectors.toList());
     }
 
     @Override

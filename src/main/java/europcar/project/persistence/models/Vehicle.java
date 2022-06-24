@@ -22,7 +22,6 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, unique = true, updatable = false)
     private Long id;
-    private String name;
 
     @Column(nullable = false, unique = true, updatable = false)
     private String licensePlate;
@@ -37,6 +36,4 @@ public class Vehicle {
     private LocalDate productionDate;// 2022-06-13
     private LocalDate registrationDate;// 2022-06-13
     private String avatarUrl;
-
-
 }

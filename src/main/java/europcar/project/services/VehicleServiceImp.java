@@ -25,7 +25,6 @@ public class VehicleServiceImp implements VehicleServiceI {
 
     public VehicleDto getVehicleById(Long id)  {
         Vehicle vehicleById = this.vehicleJpaRepository.findById(id).get();
-        if(vehicleById==null) return null;
         return this.vehicleConverter.entityToDto(vehicleById);
     }
 
