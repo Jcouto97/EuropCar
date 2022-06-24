@@ -30,6 +30,10 @@ public class VehicleServiceImp implements VehicleServiceI {
         return this.vehicleConverter.entityToDto(vehicleById);
     }
 
+    @Override
+    public VehicleDto getVehicleByModel(String model) {
+        return null;
+    }
 
     public VehicleDto addVehicle(VehicleDto vehicleDto) {
        Vehicle vehicle = vehicleConverter.dtoToEntity(vehicleDto);
@@ -48,5 +52,7 @@ public class VehicleServiceImp implements VehicleServiceI {
         this.vehicleJpaRepository.delete(vehicleJpaRepository.findById(id)
                 .orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND)));
     }
+
+
 
 }
