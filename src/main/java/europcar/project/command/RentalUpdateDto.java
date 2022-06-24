@@ -2,11 +2,7 @@ package europcar.project.command;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import org.apache.tomcat.jni.Local;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter
@@ -15,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class RentalDto {
+public class RentalUpdateDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
@@ -26,8 +22,7 @@ public class RentalDto {
     //@ManyToOne(cascade = CascadeType.ALL)
     //@JoinColumn(name = "vehicleId", referencedColumnName = "id")
     //private Vehicle vehicle;
-    @NotNull
     private LocalDate rentDate;
-    private LocalDate returnDate = LocalDate.now();
-    private int missingFuelPrice = 2;
+    private LocalDate returnDate;
+    private int missingFuelPrice;
 }

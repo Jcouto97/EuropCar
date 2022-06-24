@@ -1,6 +1,7 @@
 package europcar.project.converters;
 
 import europcar.project.command.RentalDto;
+import europcar.project.command.RentalUpdateDto;
 import europcar.project.persistence.models.Rental;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Component
 @AllArgsConstructor
-public class RentalConverter implements DtoConvertersI<Rental, RentalDto> {
+public class RentalConverter implements DtoConvertersI<Rental, RentalDto, RentalUpdateDto> {
     private final ModelMapper MODEL_MAPPER;
 
     @Override
@@ -23,9 +24,14 @@ public class RentalConverter implements DtoConvertersI<Rental, RentalDto> {
         return this.MODEL_MAPPER.map(rentalDto, Rental.class);
     }
 
-    public Rental dtoToEntity(RentalDto rentalDto, Rental rental) {
+    @Override
+    public RentalUpdateDto entityToUpdateDto(Rental rental) {
+        return this.MODEL_MAPPER.map(rental, RentalUpdateDto.class);
+    }
+
+    public Rental updateDtoToEntity(RentalUpdateDto rentalUpdateDto, Rental rental) {
         this.MODEL_MAPPER.getConfiguration().setSkipNullEnabled(true);
-        this.MODEL_MAPPER.map(rentalDto, rental);
+        this.MODEL_MAPPER.map(rentalUpdateDto, rental);
         return rental;
     }
 
