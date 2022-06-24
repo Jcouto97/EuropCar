@@ -24,7 +24,7 @@ public class RentalServiceImp implements RentalServiceI {
         return this.converter.convertEntityListToDtoList(this.repository.findAll());
     }
 
-    public RentalDto getRental(Long id) {
+    public RentalDto getRentalById(Long id) {
         return this.converter.entityToDto(
                 this.repository.findById(id).orElseThrow(() ->
                         new RentalNotFoundException(RENTAL_NOT_FOUND)));

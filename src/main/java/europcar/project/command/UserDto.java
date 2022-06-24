@@ -21,7 +21,6 @@ import java.util.Set;
 @Builder
 @ToString
 
-
 public class UserDto {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
