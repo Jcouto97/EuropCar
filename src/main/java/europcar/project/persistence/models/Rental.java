@@ -20,9 +20,9 @@ public class Rental {
     @Column(nullable = false, unique = true, updatable = false)
     private Long id;
 
-    //@ManyToOne(cascade = CascadeType.ALL)
-    //@JoinColumn(name = "userId", referencedColumnName = "id")
-    //private User user;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+    private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "vehicleId", referencedColumnName = "id")
