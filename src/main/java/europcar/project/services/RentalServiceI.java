@@ -1,7 +1,17 @@
 package europcar.project.services;
 
-public interface RentalServiceI {
-    String getString();
+import europcar.project.command.RentalDto;
 
-    String postString(String name);
+import java.util.List;
+
+public interface RentalServiceI {
+    List<RentalDto> getRentals();
+
+    RentalDto addRental(RentalDto rentalsDto);
+
+    RentalDto getRental(Long id);
+
+    void deleteRental(Long id);
+
+    RentalDto updateRental(Long id, RentalDto rentalDto);
 }
