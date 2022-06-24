@@ -7,6 +7,7 @@ import europcar.project.exceptions.VehicleNotFoundException;
 import europcar.project.persistence.models.Vehicle;
 
 import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.*;
+
 import europcar.project.persistence.repositories.VehicleJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,22 +25,20 @@ public class VehicleServiceImp implements VehicleServiceI {
         return this.vehicleJpaRepository.findAll();
     }
 
-
-    public VehicleDto getVehicleById(Long id)  {
+    public VehicleDto getVehicleById(Long id) {
         Vehicle vehicleById = this.vehicleJpaRepository.findById(id).get();
         return this.vehicleConverter.entityToDto(vehicleById);
     }
 
-
     public VehicleDto addVehicle(VehicleDto vehicleDto) {
-       Vehicle vehicle = vehicleConverter.dtoToEntity(vehicleDto);
-       return vehicleConverter.entityToDto(vehicleJpaRepository.save(vehicle));
+        Vehicle vehicle = vehicleConverter.dtoToEntity(vehicleDto);
+        return vehicleConverter.entityToDto(vehicleJpaRepository.save(vehicle));
     }
 
     @Override
     public VehicleDto updateVehicle(Long id, VehicleUpdateDto vehicleUpdateDto) {
-       Vehicle vehicle =  vehicleConverter.updateDtoToEntity(vehicleUpdateDto, vehicleJpaRepository.findById(id)
-               .orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND)));
+        Vehicle vehicle = vehicleConverter.updateDtoToEntity(vehicleUpdateDto, vehicleJpaRepository.findById(id)
+                .orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND)));
         return vehicleConverter.entityToDto(vehicleJpaRepository.save(vehicle));
     }
 
@@ -48,5 +47,4 @@ public class VehicleServiceImp implements VehicleServiceI {
         this.vehicleJpaRepository.delete(vehicleJpaRepository.findById(id)
                 .orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND)));
     }
-
 }

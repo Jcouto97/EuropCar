@@ -30,9 +30,9 @@ public class Vehicle {
     @Size(min = 2, message = "License plate should have at least 2 characters")
     private String licensePlate;
 
-    @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    private List<Rental> rentals;
+//    @OneToMany(mappedBy = "vehicleId", fetch = FetchType.LAZY,
+//            cascade = CascadeType.ALL)
+//    private List<Rental> rentals;
 
     private String type; //car/motorbike/boat, etc
     private String model;

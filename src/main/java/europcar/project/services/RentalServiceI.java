@@ -10,7 +10,7 @@ public interface RentalServiceI {
 
     RentalDto addRental(RentalDto rentalsDto);
 
-    RentalDto getRental(Long id);
+    RentalDto getRentalById(Long id);
 
     void deleteRental(Long id);
 

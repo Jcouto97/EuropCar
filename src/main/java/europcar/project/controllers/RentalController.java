@@ -2,7 +2,6 @@ package europcar.project.controllers;
 
 import europcar.project.command.RentalDto;
 import europcar.project.command.RentalUpdateDto;
-import europcar.project.persistence.models.Rental;
 import europcar.project.services.RentalServiceI;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +21,8 @@ public class RentalController {
     }
 
     @GetMapping("/{id}")
-    public RentalDto getRental(@PathVariable("id") Long id) {
-        return this.rentalServiceI.getRental(id);
+    public RentalDto getRentalById(@PathVariable("id") Long id) {
+        return this.rentalServiceI.getRentalById(id);
     }
 
     @PostMapping

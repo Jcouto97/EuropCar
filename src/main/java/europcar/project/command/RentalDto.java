@@ -29,5 +29,8 @@ public class RentalDto {
     @NotNull
     private LocalDate rentDate;
     private LocalDate returnDate = LocalDate.now();
+
+    @Min(0)
+    @Max(5)
     private int missingFuelPrice = 2;
 }
