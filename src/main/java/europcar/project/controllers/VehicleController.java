@@ -53,8 +53,9 @@ public class VehicleController {
 
 
 
-    @PostMapping
-    public ResponseEntity<VehicleDto> addNewVehicle(@RequestBody VehicleDto requestVehicleDto) {
+    @PostMapping //("/{id}")
+    public ResponseEntity<VehicleDto> addNewVehicle(@PathVariable("id") Long id, @RequestBody VehicleDto requestVehicleDto) {
+        //testar com o id do modelo; não está terminado
         VehicleDto responseVehicleDto = this.vehicleServiceI.addVehicle(requestVehicleDto);
         return new ResponseEntity<>(responseVehicleDto, HttpStatus.OK);
     }

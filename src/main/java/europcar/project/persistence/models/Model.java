@@ -26,6 +26,7 @@ public class Model {
     private Long id;
 
     @Size(min = 2, message = "Model name should have at least 2 characters")
+
     @Column(nullable = false, unique = true, updatable = false)
     private String name;
 
