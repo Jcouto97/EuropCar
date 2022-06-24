@@ -14,8 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.USER_ALREADY_EXISTS;
-import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.USER_NOT_FOUND;
+import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.*;
 
 @Service
 @AllArgsConstructor
@@ -40,7 +39,7 @@ public class UserServiceImp implements UserServiceI{
         Optional<User> users = this.userRepository.findByName(userName);
 
         if(users.isEmpty()){
-            throw new UserNotFoundException("No users found with that name.");
+            throw new UserNotFoundException(USER_NAME_NOT_FOUND);
         }
 
 
@@ -49,7 +48,8 @@ public class UserServiceImp implements UserServiceI{
 
     @Override
     public UserDto signUp(UserDto userDto) {
-//        Optional<User> user = userRepository.findById(userDto.getId());     EXCEÇAO PERSONALIZADA N FUNCIONA??
+//        EXCEÇAO PERSONALIZADA N FUNCIONA??
+//        Optional<User> user = userRepository.findById(userDto.getId());
 //
 //        if(user.isPresent()){
 //            throw new UserAlreadyExists(USER_ALREADY_EXISTS);
