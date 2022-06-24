@@ -36,4 +36,11 @@ public class VehicleController {
         VehicleDto responseVehicleDto = this.vehicleServiceI.addVehicle(requestVehicleDto);
         return new ResponseEntity<>(responseVehicleDto, HttpStatus.OK);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<VehicleDto> updateVehicle(@PathVariable("id") Long id, @RequestBody VehicleDto)
+
+    @DeleteMapping
+
+
 }
