@@ -34,12 +34,14 @@ public class VehicleController {
     }
 
     @GetMapping("byModel/{model}")
-    public ResponseEntity<VehicleDto> getVehicleById(@PathVariable("model") String model) throws Throwable {
-        VehicleDto vehicleDto = this.vehicleServiceI.getVehicleByModel(model);
+    public ResponseEntity<List <VehicleDto>> getVehicleByModel(@PathVariable("model") String model) throws Throwable {
+        List <VehicleDto> vehicleDto = this.vehicleServiceI.getVehicleByModel(model);
 
         if (vehicleDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(vehicleDto, HttpStatus.OK);
     }
+
+
     @PostMapping
     public ResponseEntity<VehicleDto> addNewVehicle(@RequestBody VehicleDto requestVehicleDto) {
         VehicleDto responseVehicleDto = this.vehicleServiceI.addVehicle(requestVehicleDto);

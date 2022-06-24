@@ -3,7 +3,7 @@ package europcar.project.services;
 import europcar.project.command.VehicleDto;
 import europcar.project.command.VehicleUpdateDto;
 import europcar.project.converters.VehicleConverterImpl;
-import europcar.project.exceptions.VehicleNotFoundException;
+import europcar.project.exceptions.*;
 import europcar.project.persistence.models.Vehicle;
 
 import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.*;
@@ -31,8 +31,9 @@ public class VehicleServiceImp implements VehicleServiceI {
     }
 
     @Override
-    public VehicleDto getVehicleByModel(String model) {
-        return null;
+    public List <VehicleDto> getVehicleByModel(String model) {
+        List <Vehicle> vehicleByModel = this.vehicleJpaRepository.findByModel(model);
+        return this.vehicleConverter.convertEntityListToDtoList(vehicleByModel);
     }
 
     public VehicleDto addVehicle(VehicleDto vehicleDto) {
