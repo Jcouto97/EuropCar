@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.RESOURCE_ALREADY_EXISTS;
+import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.USER_NOT_FOUND;
 
 @ControllerAdvice
 public class ValidationHandler extends ResponseEntityExceptionHandler {
@@ -43,8 +44,9 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {SQLIntegrityConstraintViolationException.class})
-    protected ResponseEntity<Object> handleConflict2(RuntimeException ex, WebRequest request) {
+    protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
         String bodyOfResponse = RESOURCE_ALREADY_EXISTS;
         return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
+
 }

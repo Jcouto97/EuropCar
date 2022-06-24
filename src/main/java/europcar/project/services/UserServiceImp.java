@@ -35,13 +35,12 @@ public class UserServiceImp implements UserServiceI{
     }
 
     @Override
-    public List<UserDto> getUserByName(String userName) {
-        Optional<User> users = this.userRepository.findByName(userName);
+    public List<UserDto> getUserByName(String userName) { //qd + que 1 com nome igual parte
+        List<User> users = this.userRepository.findByName(userName);
 
         if(users.isEmpty()){
             throw new UserNotFoundException(USER_NAME_NOT_FOUND);
         }
-
 
         return users.stream().map(user -> userConverterImp.entityToDto(user)).toList();
     }
