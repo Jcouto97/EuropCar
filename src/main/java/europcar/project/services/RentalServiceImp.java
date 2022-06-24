@@ -1,6 +1,7 @@
 package europcar.project.services;
 
 import europcar.project.command.RentalDto;
+import europcar.project.command.RentalUpdateDto;
 import europcar.project.converters.RentalConverter;
 import europcar.project.exceptions.RentalNotFoundException;
 import europcar.project.persistence.models.Rental;
@@ -44,11 +45,11 @@ public class RentalServiceImp implements RentalServiceI {
     }
 
     @Override
-    public RentalDto updateRental(Long id, RentalDto rentalDto) {
+    public RentalUpdateDto updateRental(Long id, RentalUpdateDto rentalUpdateDto) {
         Rental rental = this.repository.findById(id).orElseThrow(() ->
                 new RentalNotFoundException(RENTAL_NOT_FOUND));
-        Rental updatedRental = this.converter.dtoToEntity(rentalDto, rental);
-        return this.converter.entityToDto(
+        Rental updatedRental = this.converter.updateDtoToEntity(rentalUpdateDto, rental);
+        return this.converter.entityToUpdateDto(
                 this.repository.save(updatedRental));
     }
 }

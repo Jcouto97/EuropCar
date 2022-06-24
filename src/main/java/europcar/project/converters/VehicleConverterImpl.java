@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
-public class VehicleConverterImpl implements DtoConvertersI<Vehicle, VehicleDto> {
+public class VehicleConverterImpl implements DtoConvertersI<Vehicle, VehicleDto, VehicleUpdateDto> {
     private final ModelMapper MODEL_MAPPER;
 
     @Override

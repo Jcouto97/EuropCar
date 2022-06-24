@@ -1,6 +1,7 @@
 package europcar.project.services;
 
 import europcar.project.command.RentalDto;
+import europcar.project.command.RentalUpdateDto;
 
 import java.util.List;
 
@@ -13,5 +14,5 @@ public interface RentalServiceI {
 
     void deleteRental(Long id);
 
-    RentalDto updateRental(Long id, RentalDto rentalDto);
+    RentalUpdateDto updateRental(Long id, RentalUpdateDto rentalUpdateDto);
 }

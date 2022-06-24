@@ -1,10 +1,13 @@
 package europcar.project.controllers;
 
 import europcar.project.command.RentalDto;
+import europcar.project.command.RentalUpdateDto;
+import europcar.project.persistence.models.Rental;
 import europcar.project.services.RentalServiceI;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,7 +27,7 @@ public class RentalController {
     }
 
     @PostMapping
-    public RentalDto addRental(@RequestBody RentalDto rentalDto) {
+    public RentalDto addRental(@Valid @RequestBody RentalDto rentalDto) {
         return this.rentalServiceI.addRental(rentalDto);
     }
 
@@ -34,7 +37,7 @@ public class RentalController {
     }
 
     @PutMapping("/{id}")
-    public RentalDto updateRental(@PathVariable("id") Long id, @RequestBody RentalDto rentalDto) {
-        return this.rentalServiceI.updateRental(id, rentalDto);
+    public RentalUpdateDto updateRental(@PathVariable("id") Long id, @Valid @RequestBody RentalUpdateDto rentalUpdateDto) {
+        return this.rentalServiceI.updateRental(id, rentalUpdateDto);
     }
 }
