@@ -7,6 +7,7 @@ import europcar.project.persistence.models.Rental;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -23,6 +24,7 @@ import java.util.Set;
 
 public class UserDto {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @NotEmpty
@@ -30,7 +32,9 @@ public class UserDto {
     private String name;
     private LocalDate dateOfBirth;
 
-    @Column(nullable = false, unique = true)
+    @NotEmpty
+    @Email
+    @Size(min = 4, max = 30, message = "The email must be between 8 and 30 characters")
     private String email;
 
     @NotEmpty
@@ -38,7 +42,7 @@ public class UserDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @Column(nullable = false, unique = true)
+    @Size(min = 8, max = 8, message = "Drivers license must have 8 characters")
     private String driversLicense;
     private boolean isRenting;
 

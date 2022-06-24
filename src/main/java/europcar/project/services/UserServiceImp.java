@@ -1,6 +1,7 @@
 package europcar.project.services;
 
 import europcar.project.command.UserDto;
+import europcar.project.command.UserUpdateDto;
 import europcar.project.converters.UserConverterImp;
 import europcar.project.persistence.models.User;
 import europcar.project.persistence.repositories.UserRepository;
@@ -40,5 +41,18 @@ public class UserServiceImp implements UserServiceI{
         return userConverterImp.entityToDto(userToDelete);
     }
 
+    @Override
+    public UserDto updateUser(Long id, UserUpdateDto userUpdateDto) {
+        User originalUser = this.userRepository.findById(id).orElse(null);
 
+        if(originalUser==null){
+            return null;
+        }
+
+        User updated = userConverterImp.updateDtoToEntity(userUpdateDto, originalUser);
+
+        this.userRepository.save(updated);
+
+        return userConverterImp.entityToDto(updated);
+    }
 }

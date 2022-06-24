@@ -3,23 +3,21 @@ package europcar.project.converters;
 import europcar.project.command.UserDto;
 import europcar.project.command.UserUpdateDto;
 import europcar.project.persistence.models.User;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
-public class UserConverterImp implements ConvertersI<User, UserDto, UserUpdateDto> {
+@AllArgsConstructor
+public class UserConverterImp implements DtoConvertersI<User, UserDto>, UpdateDtoConvertersI<User, UserUpdateDto>{
 
     private final ModelMapper MODEL_MAPPER;
 
-    public UserConverterImp(ModelMapper modelMapper) {
-        this.MODEL_MAPPER = modelMapper;
-        this.MODEL_MAPPER.getConfiguration().setSkipNullEnabled(true);
-    }
 
     @Override
     public UserDto entityToDto(User user) {
         return MODEL_MAPPER.map(user, UserDto.class);
-    }
+    } //convert de instancia para classe
 
     @Override
     public User dtoToEntity(UserDto userDto) {
@@ -32,8 +30,10 @@ public class UserConverterImp implements ConvertersI<User, UserDto, UserUpdateDt
     }
 
     @Override
-    public User updateDtoToEntity(UserUpdateDto update) {
-        return MODEL_MAPPER.map(update, User.class);
+    public User updateDtoToEntity(UserUpdateDto userUpdateDto, User user) {
+        this.MODEL_MAPPER.getConfiguration().setSkipNullEnabled(true);
+        MODEL_MAPPER.map(userUpdateDto, user);
+        return user;
     }
 
     @Override

@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UserUpdateDto {
+public class UserUpdateDto { //tudo o que posso alterar
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
