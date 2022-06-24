@@ -18,6 +18,7 @@ import java.util.List;
 @Entity
 @Table(name = "vehicle")
 
+
 public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
