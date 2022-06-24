@@ -38,6 +38,7 @@ public class VehicleController {
     }
 
 
+
     @PostMapping
     public ResponseEntity<VehicleDto> addNewVehicle(@RequestBody VehicleDto requestVehicleDto) {
         VehicleDto responseVehicleDto = this.vehicleServiceI.addVehicle(requestVehicleDto);
