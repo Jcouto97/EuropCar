@@ -1,6 +1,7 @@
 package europcar.project.command;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import europcar.project.persistence.models.Rentals;
 import lombok.*;
 
@@ -31,6 +32,9 @@ public class UserDto {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @NotEmpty
+    @Size(min = 8, max = 30, message = "The password must be between 8 and 30 characters")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(nullable = false, unique = true)
