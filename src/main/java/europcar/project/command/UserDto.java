@@ -2,7 +2,8 @@ package europcar.project.command;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import europcar.project.persistence.models.Rentals;
+
+import europcar.project.persistence.models.Rental;
 import lombok.*;
 
 import javax.persistence.*;
@@ -48,6 +49,6 @@ public class UserDto {
     @JsonIgnore //para problema de recursividade
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
-    private Set<Rentals> rentals = new HashSet<>();
+    private Set<Rental> rentals = new HashSet<>();
 
 }
