@@ -1,5 +1,6 @@
 package europcar.project.command;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.validation.constraints.Email;
@@ -15,6 +16,7 @@ import java.time.Month;
 @Builder
 public class VehicleUpdateDto {
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
     private String name;
 
@@ -27,6 +29,7 @@ public class VehicleUpdateDto {
     private String model;
     private String color;
     private Long numOfSeats;
+    private Long pricePerHour;
     private LocalDate productionDate;// 2022-06-13
     private LocalDate registrationDate;
 

@@ -26,13 +26,15 @@ public class VehicleServiceImp implements VehicleServiceI {
     }
 
     public VehicleDto getVehicleById(Long id) {
-        Vehicle vehicleById = this.vehicleJpaRepository.findById(id).get();
+        Vehicle vehicleById = this.vehicleJpaRepository.findById(id)
+                .orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND));
         return this.vehicleConverter.entityToDto(vehicleById);
     }
 
     @Override
     public List <VehicleDto> getVehicleByModel(String model) {
         List <Vehicle> vehicleByModel = this.vehicleJpaRepository.findByModel(model);
+        if(vehicleByModel.isEmpty()) throw new VehicleNotFoundException(VEHICLE_NOT_FOUND);
         return this.vehicleConverter.convertEntityListToDtoList(vehicleByModel);
     }
 

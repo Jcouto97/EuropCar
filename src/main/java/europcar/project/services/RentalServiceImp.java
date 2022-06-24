@@ -3,7 +3,7 @@ package europcar.project.services;
 import europcar.project.command.RentalDto;
 import europcar.project.command.RentalUpdateDto;
 import europcar.project.converters.RentalConverter;
-import europcar.project.exceptions.RentalNotFoundException;
+import europcar.project.exceptions.*;
 import europcar.project.persistence.models.Rental;
 import europcar.project.persistence.repositories.RentalsJpaRepositoryI;
 import lombok.AllArgsConstructor;

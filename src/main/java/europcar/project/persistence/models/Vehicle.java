@@ -39,6 +39,7 @@ public class Vehicle {
     private String model;
     private String color;
     private Long numOfSeats;
+    private Long pricePerHour;
     private LocalDate productionDate;// 2022-06-13
     private LocalDate registrationDate;// 2022-06-13
 }
