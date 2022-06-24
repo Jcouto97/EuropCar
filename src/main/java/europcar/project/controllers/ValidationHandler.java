@@ -21,6 +21,8 @@ import java.util.Map;
 import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.RESOURCE_ALREADY_EXISTS;
 import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.USER_NOT_FOUND;
 
+import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.RESOURCE_ALREADY_EXISTS;
+
 @ControllerAdvice
 public class ValidationHandler extends ResponseEntityExceptionHandler {
     @Override

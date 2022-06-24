@@ -17,4 +17,6 @@ public interface RentalServiceI {
     RentalUpdateDto updateRental(Long id, RentalUpdateDto rentalUpdateDto);
 
     List<RentalDto> getRentalByUser(Long id);
+
+    void rent(Long userId, Long vehicleId);
 }

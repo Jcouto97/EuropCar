@@ -1,7 +1,6 @@
 package europcar.project.persistence.models;
 
 import lombok.*;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -32,4 +31,5 @@ public class Rental {
     private LocalDate rentDate;
     private LocalDate returnDate;
     private int missingFuelPrice;
+    private boolean isPaid;
 }

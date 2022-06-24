@@ -3,12 +3,8 @@ package europcar.project.command;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import europcar.project.persistence.models.Vehicle;
 import lombok.*;
-import org.apache.tomcat.jni.Local;
 import org.apache.tomcat.jni.User;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter

@@ -44,4 +44,10 @@ public class RentalController {
     public RentalUpdateDto updateRental(@PathVariable("id") Long id, @Valid @RequestBody RentalUpdateDto rentalUpdateDto) {
         return this.rentalServiceI.updateRental(id, rentalUpdateDto);
     }
+
+    @GetMapping("/rent/user/{userId}/vehicle/{vehicleId}")
+    public void rent(@PathVariable("userId") Long userId,
+                     @PathVariable("vehicleId") Long vehicleId) {
+        this.rentalServiceI.rent(userId, vehicleId);
+    }
 }

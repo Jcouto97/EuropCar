@@ -39,9 +39,9 @@ public class User {
     private boolean isRenting;
 
 //    @JsonIgnore //para problema de recursividade
-//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
-//            cascade = CascadeType.ALL)
-//    private Set<Rental> rentals = new HashSet<>();
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private Set<Rental> rentals = new HashSet<>();
 
     //metodo no controller para vir buscar aqui ao user
 }

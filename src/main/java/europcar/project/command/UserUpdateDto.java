@@ -1,6 +1,5 @@
 package europcar.project.command;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -31,5 +30,4 @@ public class UserUpdateDto { //tudo o que posso alterar
     @Size(min = 8, max = 30, message = "The password must be between 8 and 30 characters")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-
 }
