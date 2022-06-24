@@ -19,4 +19,6 @@ public interface VehicleServiceI {
     VehicleDto addVehicle(VehicleDto vehicleDto);
 
     VehicleDto updateVehicle(Long id, VehicleUpdateDto vehicleUpdateDto);
+
+    void deleteVehicle(Long id);
 }
