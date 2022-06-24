@@ -38,7 +38,12 @@ public class Vehicle {
     private List<Rental> rentals;
 
     private String type; //car/motorbike/boat, etc
-    private String model;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "model", referencedColumnName = "id")
+    private Model model;
+
+
     private String color;
     private Long numOfSeats;
     private Long pricePerHour;

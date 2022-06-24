@@ -1,8 +1,12 @@
 package europcar.project.controllers;
 
+import europcar.project.command.ModelDto;
 import europcar.project.command.VehicleDto;
 import europcar.project.command.VehicleUpdateDto;
+import europcar.project.exceptions.ModelNotFoundException;
+import europcar.project.persistence.models.Model;
 import europcar.project.persistence.models.Vehicle;
+import europcar.project.services.ModelServiceI;
 import europcar.project.services.VehicleServiceI;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.MODEL_NOT_FOUND;
+
 @RestController
 @RequestMapping("api/v1/vehicles")
 @AllArgsConstructor
@@ -19,6 +25,7 @@ import java.util.List;
 public class VehicleController {
 
     private final VehicleServiceI vehicleServiceI;
+    private final ModelServiceI modelServiceI;
 
     @GetMapping
     public List<Vehicle> getVehicles() {
@@ -33,7 +40,8 @@ public class VehicleController {
 
     @GetMapping("byModel/{model}")
     public ResponseEntity<List <VehicleDto>> getVehicleByModel(@PathVariable("model") String model) throws Throwable {
-        List <VehicleDto> vehicleDto = this.vehicleServiceI.getVehicleByModel(model);
+        ModelDto modelDto = this.modelServiceI.getModelByName(model);
+        List <VehicleDto> vehicleDto = this.vehicleServiceI.getVehicleByModel(modelDto);
         return new ResponseEntity<>(vehicleDto, HttpStatus.OK);
     }
 

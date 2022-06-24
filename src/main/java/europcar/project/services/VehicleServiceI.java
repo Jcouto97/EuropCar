@@ -1,7 +1,9 @@
 package europcar.project.services;
 
+import europcar.project.command.ModelDto;
 import europcar.project.command.VehicleDto;
 import europcar.project.command.VehicleUpdateDto;
+import europcar.project.persistence.models.Model;
 import europcar.project.persistence.models.Vehicle;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
@@ -23,7 +25,7 @@ public interface VehicleServiceI {
     //delete
     void deleteVehicle(Long id);
 
-    List <VehicleDto> getVehicleByModel(String model);
+    List <VehicleDto> getVehicleByModel(ModelDto model);
 
     List<VehicleDto> getVehicleByType(String type);
 }

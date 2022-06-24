@@ -1,6 +1,7 @@
 package europcar.project.command;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import europcar.project.persistence.models.Model;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,7 +25,7 @@ public class VehicleDto {
 
     private Long rentalId;
     private String type; //car/motorbike/boat, etc
-    private String model;
+    private Model model;
     private String color;
     private Long numOfSeats;
     private Long pricePerHour;

@@ -1,9 +1,8 @@
 package europcar.project.controllers;
 
-import europcar.project.exceptions.RentalNotFoundException;
+import europcar.project.exceptions.*;
 import europcar.project.exceptions.UserAlreadyExists;
 import europcar.project.exceptions.UserNotFoundException;
-import europcar.project.exceptions.VehicleNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
