@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface VehicleJpaRepository extends JpaRepository<Vehicle, Long> {
 
 
-
+   List <Vehicle> findByModel(String model);
 }
