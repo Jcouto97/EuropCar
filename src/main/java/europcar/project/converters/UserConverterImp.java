@@ -9,7 +9,7 @@ import org.modelmapper.ModelMapper;
 import java.util.List;
 
 @AllArgsConstructor
-public class UserConverterImp implements DtoConvertersI<User, UserDto>, UpdateDtoConvertersI<User, UserUpdateDto>{
+public class UserConverterImp implements DtoConvertersI<User, UserDto, UserUpdateDto>{
 
     private final ModelMapper MODEL_MAPPER;
 
