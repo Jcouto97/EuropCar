@@ -24,6 +24,8 @@ public class Vehicle {
     @Column(nullable = false, unique = true, updatable = false)
     private Long id;
 
+    private String name;
+
     @Column(nullable = false, unique = true, updatable = false)
     @Size(min = 2, message = "License plate should have at least 2 characters")
     private String licensePlate;

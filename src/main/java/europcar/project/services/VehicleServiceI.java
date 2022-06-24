@@ -19,4 +19,9 @@ public interface VehicleServiceI {
     VehicleDto addVehicle(VehicleDto vehicleDto);
 
     VehicleDto updateVehicle(Long id, VehicleUpdateDto vehicleUpdateDto);
+
+    //delete
+    void deleteVehicle(Long id);
+
+    VehicleDto getVehicleByModel(String model);
 }

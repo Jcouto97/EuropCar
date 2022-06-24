@@ -25,7 +25,7 @@ public class VehicleController {
         return this.vehicleServiceI.getVehicles();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("byId/{id}")
     public ResponseEntity<VehicleDto> getVehicleById(@PathVariable("id") Long id) throws Throwable {
     VehicleDto vehicleDto = this.vehicleServiceI.getVehicleById(id);
 
@@ -33,6 +33,13 @@ public class VehicleController {
         return new ResponseEntity<>(vehicleDto, HttpStatus.OK);
     }
 
+    @GetMapping("byModel/{model}")
+    public ResponseEntity<VehicleDto> getVehicleById(@PathVariable("model") String model) throws Throwable {
+        VehicleDto vehicleDto = this.vehicleServiceI.getVehicleByModel(model);
+
+        if (vehicleDto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(vehicleDto, HttpStatus.OK);
+    }
     @PostMapping
     public ResponseEntity<VehicleDto> addNewVehicle(@RequestBody VehicleDto requestVehicleDto) {
         VehicleDto responseVehicleDto = this.vehicleServiceI.addVehicle(requestVehicleDto);
@@ -47,7 +54,10 @@ public class VehicleController {
     }
 
 
-   // @DeleteMapping
-
+   @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteVehicle(@PathVariable("id") Long id) {
+       this.vehicleServiceI.deleteVehicle(id);
+       return  new ResponseEntity<>("Vehicle with the ID " + id + " was removed from the database.", HttpStatus.OK);
+   }
 
 }
