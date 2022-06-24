@@ -37,6 +37,12 @@ public class VehicleController {
         return new ResponseEntity<>(vehicleDto, HttpStatus.OK);
     }
 
+    @GetMapping("{type}")
+    public ResponseEntity<List <VehicleDto>> getVehicleByType(@PathVariable("type") String type) throws Throwable {
+        List <VehicleDto> vehicleDto = this.vehicleServiceI.getVehicleByType(type);
+        return new ResponseEntity<>(vehicleDto, HttpStatus.OK);
+    }
+
 
 
     @PostMapping

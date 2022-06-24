@@ -24,4 +24,6 @@ public interface VehicleServiceI {
     void deleteVehicle(Long id);
 
     List <VehicleDto> getVehicleByModel(String model);
+
+    List<VehicleDto> getVehicleByType(String type);
 }

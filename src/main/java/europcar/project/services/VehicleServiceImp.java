@@ -38,6 +38,13 @@ public class VehicleServiceImp implements VehicleServiceI {
         return this.vehicleConverter.convertEntityListToDtoList(vehicleByModel);
     }
 
+    @Override
+    public List<VehicleDto> getVehicleByType(String type) {
+        List <Vehicle> vehicleByType = this.vehicleJpaRepository.findByType(type);
+        if(vehicleByType.isEmpty()) throw new VehicleNotFoundException(VEHICLE_NOT_FOUND);
+        return this.vehicleConverter.convertEntityListToDtoList(vehicleByType);
+    }
+
     public VehicleDto addVehicle(VehicleDto vehicleDto) {
         Vehicle vehicle = vehicleConverter.dtoToEntity(vehicleDto);
         return vehicleConverter.entityToDto(vehicleJpaRepository.save(vehicle));
