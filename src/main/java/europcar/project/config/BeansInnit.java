@@ -7,6 +7,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class BeansInnit {
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 
     @Bean
     public UserConverterImp UserConverterImp() {
