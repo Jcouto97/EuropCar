@@ -2,6 +2,7 @@ package europcar.project.controllers;
 
 import europcar.project.command.RentalDto;
 import europcar.project.command.RentalUpdateDto;
+import europcar.project.persistence.models.Rental;
 import europcar.project.services.RentalServiceI;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +26,10 @@ public class RentalController {
         return this.rentalServiceI.getRentalById(id);
     }
 
-    @GetMapping("clientid/{id}")
-    public List<RentalDto> getRentalsByUser(@PathVariable("id") Long id) {
-        return this.rentalServiceI.getRentalByUser(id);
-    }
+//    @GetMapping("clientid/{id}")
+//    public List<RentalDto> getRentalsByUser(@PathVariable("id") Long id) {
+//        return this.rentalServiceI.getRentalByUser(id);
+//    }
 
     @PostMapping
     public RentalDto addRental(@Valid @RequestBody RentalDto rentalDto) {
@@ -46,8 +47,14 @@ public class RentalController {
     }
 
     @GetMapping("/rent/user/{userId}/vehicle/{vehicleId}")
-    public void rent(@PathVariable("userId") Long userId,
-                     @PathVariable("vehicleId") Long vehicleId) {
-        this.rentalServiceI.rent(userId, vehicleId);
+    public RentalDto rentVehicle(@PathVariable("userId") Long userId,
+                                 @PathVariable("vehicleId") Long vehicleId) {
+        return this.rentalServiceI.rentVehicle(userId, vehicleId);
+    }
+
+    @PostMapping("/rent/user/{userId}/vehicle/{vehicleId}")
+    public List<Rental> returnVehicle(@PathVariable("userId") Long userId,
+                                      @PathVariable("vehicleId") Long vehicleId) {
+        return this.rentalServiceI.returnVehicle(userId);
     }
 }

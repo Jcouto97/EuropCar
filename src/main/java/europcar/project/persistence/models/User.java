@@ -5,7 +5,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -17,9 +19,8 @@ import java.util.Set;
 @ToString
 @EqualsAndHashCode
 @Table(name = "users")
-
 public class User {
-//commit
+    //commit
     //sdsf
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,10 +39,17 @@ public class User {
     private String driversLicense;
     private boolean isRenting;
 
-//    @JsonIgnore //para problema de recursividade
+    @JsonIgnore //para problema de recursividade
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
-    private Set<Rental> rentals = new HashSet<>();
+    private List<Rental> rentals;
 
     //metodo no controller para vir buscar aqui ao user
+    public void addRental(Rental rental) {
+        this.rentals.add(rental);
+    }
+
+    public void removeRental(Rental rental) {
+        this.rentals.remove(rental);
+    }
 }

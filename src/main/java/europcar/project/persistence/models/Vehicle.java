@@ -22,7 +22,7 @@ import java.util.List;
 
 public class Vehicle {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, unique = true, updatable = false)
     private Long id;
 
@@ -44,4 +44,5 @@ public class Vehicle {
     private Long pricePerHour;
     private LocalDate productionDate;// 2022-06-13
     private LocalDate registrationDate;// 2022-06-13
+    private boolean isRented;
 }

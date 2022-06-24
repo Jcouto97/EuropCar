@@ -1,9 +1,9 @@
 package europcar.project.command;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import europcar.project.persistence.models.User;
 import europcar.project.persistence.models.Vehicle;
 import lombok.*;
-import org.apache.tomcat.jni.User;
 
 import java.time.LocalDate;
 

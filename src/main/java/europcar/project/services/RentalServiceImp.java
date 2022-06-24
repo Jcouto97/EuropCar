@@ -4,6 +4,7 @@ import europcar.project.command.RentalDto;
 import europcar.project.command.RentalUpdateDto;
 import europcar.project.converters.RentalConverter;
 import europcar.project.exceptions.RentalNotFoundException;
+import europcar.project.exceptions.RentingException;
 import europcar.project.exceptions.UserNotFoundException;
 import europcar.project.exceptions.VehicleNotFoundException;
 import europcar.project.persistence.models.Rental;
@@ -11,9 +12,8 @@ import europcar.project.persistence.models.User;
 import europcar.project.persistence.models.Vehicle;
 import europcar.project.persistence.repositories.RentalsJpaRepositoryI;
 import europcar.project.persistence.repositories.UserRepository;
-import europcar.project.persistence.repositories.VehicleJpaRepository;
+import europcar.project.persistence.repositories.VehicleRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -27,7 +27,7 @@ public class RentalServiceImp implements RentalServiceI {
     private RentalsJpaRepositoryI repository;
     private RentalConverter converter;
     private UserRepository userRepository;
-    private VehicleJpaRepository vehicleRepository;
+    private VehicleRepository vehicleRepository;
 
     @Override
     public List<RentalDto> getRentals() {
@@ -40,10 +40,10 @@ public class RentalServiceImp implements RentalServiceI {
                         new RentalNotFoundException(RENTAL_NOT_FOUND)));
     }
 
-    public List<RentalDto> getRentalByUser(Long id) {
-        return this.converter.convertEntityListToDtoList(
-                this.repository.findByUser(id));
-    }
+//    public List<RentalDto> getRentalByUser(Long id) {
+//        return this.converter.convertEntityListToDtoList(
+//                this.repository.findByUser(id));
+//    }
 
     @Override
     public RentalDto addRental(RentalDto rentalsDto) {
@@ -68,17 +68,35 @@ public class RentalServiceImp implements RentalServiceI {
                 this.repository.save(updatedRental));
     }
 
-    public void rent(Long userId, Long vehicleId) {
+    public RentalDto rentVehicle(Long userId, Long vehicleId) {
         User user = this.userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
+        if (user.isRenting()) throw new RentingException(USER_RENTING);
+        user.setRenting(true);
+
         Vehicle vehicle = this.vehicleRepository.findById(vehicleId)
                 .orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND));
+        if (vehicle.isRented()) throw new RentingException(String.format(VEHICLE_RENTING));
+        vehicle.setRented(true);
+
         Rental rental = Rental.builder()
                 .user(user)
                 .vehicle(vehicle)
                 .rentDate(LocalDate.now())
                 .missingFuelPrice(2)
                 .build();
-        this.repository.save(rental);
+        user.addRental(rental);
+        return this.converter.entityToDto(this.repository.save(rental));
+    }
+
+    public List<Rental> returnVehicle(Long userId) {
+        User user = this.userRepository.findById(userId).get()
+        return this.repository.findByUser();
+
+
+        //User user = this.userRepository.findById(userId)
+        //        .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
+        //user.getRentals()
+
     }
 }

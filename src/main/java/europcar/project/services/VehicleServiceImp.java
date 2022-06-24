@@ -8,7 +8,7 @@ import europcar.project.persistence.models.Vehicle;
 
 import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.*;
 
-import europcar.project.persistence.repositories.VehicleJpaRepository;
+import europcar.project.persistence.repositories.VehicleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VehicleServiceImp implements VehicleServiceI {
 
-    private final VehicleJpaRepository vehicleJpaRepository;
+    private final VehicleRepository vehicleJpaRepository;
     private final VehicleConverterImpl vehicleConverter;
 
     public List<Vehicle> getVehicles() {

@@ -1,9 +1,6 @@
 package europcar.project.controllers;
 
-import europcar.project.exceptions.RentalNotFoundException;
-import europcar.project.exceptions.UserAlreadyExists;
-import europcar.project.exceptions.UserNotFoundException;
-import europcar.project.exceptions.VehicleNotFoundException;
+import europcar.project.exceptions.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +37,7 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {RentalNotFoundException.class, VehicleNotFoundException.class,
-            UserNotFoundException.class, UserAlreadyExists.class})
+            UserNotFoundException.class, UserAlreadyExists.class, RentingException.class})
     protected ResponseEntity<Object> notFoundHandler(RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
