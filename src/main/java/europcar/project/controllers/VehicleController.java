@@ -48,8 +48,9 @@ public class VehicleController {
 
 
    @DeleteMapping("/{id}")
-    public void deleteVehicle(@PathVariable("id") Long id) {
+    public ResponseEntity<String> deleteVehicle(@PathVariable("id") Long id) {
        this.vehicleServiceI.deleteVehicle(id);
+       return  new ResponseEntity<>("Vehicle with the ID " + id + " was removed from the database.", HttpStatus.OK);
    }
 
 }
