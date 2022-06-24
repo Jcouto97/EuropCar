@@ -48,4 +48,5 @@ public class VehicleServiceImp implements VehicleServiceI {
         this.vehicleJpaRepository.delete(vehicleJpaRepository.findById(id)
                 .orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND)));
     }
+
 }
