@@ -1,6 +1,7 @@
 package europcar.project.controllers;
 
 import europcar.project.command.VehicleDto;
+import europcar.project.command.VehicleUpdateDto;
 import europcar.project.persistence.models.Vehicle;
 import europcar.project.services.VehicleServiceI;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -38,9 +40,14 @@ public class VehicleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VehicleDto> updateVehicle(@PathVariable("id") Long id, @RequestBody VehicleDto)
+    public ResponseEntity<VehicleDto> updateVehicle(@PathVariable("id") Long id, @Valid @RequestBody VehicleUpdateDto vehicleUpdateDto) {
+        VehicleDto vehicleUpdated = this.vehicleServiceI.updateVehicle(id, vehicleUpdateDto);
+        return new ResponseEntity<>(vehicleUpdated, HttpStatus.OK);
 
-    @DeleteMapping
+    }
+
+
+   // @DeleteMapping
 
 
 }

@@ -4,6 +4,7 @@ package europcar.project.persistence.models;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class Vehicle {
     private Long id;
 
     @Column(nullable = false, unique = true, updatable = false)
+    @Size(min = 2, message = "License plate should have at least 2 characters")
     private String licensePlate;
 
     @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY,
