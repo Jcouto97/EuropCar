@@ -35,8 +35,8 @@ public class UserServiceImp implements UserServiceI{
     }
 
     @Override
-    public List<UserDto> getUserByName(String userName) { //qd + que 1 com nome igual parte
-        List<User> users = this.userRepository.findByName(userName);
+    public List<UserDto> getUserByName(String userName) {
+        List<User> users = this.userRepository.findByName(userName); //como funciona findbyname se fui eu que defini?
 
         if(users.isEmpty()){
             throw new UserNotFoundException(USER_NAME_NOT_FOUND);
@@ -89,9 +89,4 @@ public class UserServiceImp implements UserServiceI{
 
         return userConverterImp.entityToDto(updated);
     }
-
-
-
-
-
 }

@@ -90,8 +90,8 @@ public class RentalServiceImp implements RentalServiceI {
     }
 
     public List<Rental> returnVehicle(Long userId) {
-        User user = this.userRepository.findById(userId).get()
-        return this.repository.findByUser();
+        User user = this.userRepository.findById(userId).get();
+        return this.repository.findByUser(user);
 
 
         //User user = this.userRepository.findById(userId)

@@ -3,7 +3,6 @@ package europcar.project.controllers;
 
 import europcar.project.command.UserDto;
 import europcar.project.command.UserUpdateDto;
-import europcar.project.persistence.models.User;
 import europcar.project.persistence.repositories.Populate;
 import europcar.project.services.UserServiceI;
 import lombok.AllArgsConstructor;
@@ -27,8 +26,8 @@ public class UserController {
 
     @GetMapping(path = "/byid/{UserId}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("UserId") Long userId){
-        UserDto userDeleted = this.userServiceI.getUserById(userId);
-        return new ResponseEntity<>(userDeleted, HttpStatus.OK);
+        UserDto userFound = this.userServiceI.getUserById(userId);
+        return new ResponseEntity<>(userFound, HttpStatus.OK);
     }
 
     @GetMapping(path = "/byname/{UserName}")
@@ -55,7 +54,7 @@ public class UserController {
     }
 
     @PutMapping(path = "/{UserID}")
-    public ResponseEntity<UserDto> updateStudent(@PathVariable("UserID") Long id, @Valid @RequestBody UserUpdateDto userUpdateDto) {
+    public ResponseEntity<UserDto> updateUser(@PathVariable("UserID") Long id, @Valid @RequestBody UserUpdateDto userUpdateDto) {
         UserDto userUpdated = this.userServiceI.updateUser(id, userUpdateDto);
         return new ResponseEntity<>(userUpdated, HttpStatus.OK);
     }

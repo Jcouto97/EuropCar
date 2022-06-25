@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface RentalsJpaRepositoryI extends JpaRepository<Rental, Long> {
-    @Query("FROM rentals WHERE userIdFk = ?1")
+
+    //@Query("FROM rentals WHERE userIdFk = ?1")
     List<Rental> findByUser(User user);
 }

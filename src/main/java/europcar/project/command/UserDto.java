@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import europcar.project.persistence.models.Rental;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -29,7 +30,9 @@ public class UserDto {
     @NotEmpty
     @Size(min = 2, message = "user name should have at least 2 characters")
     private String name;
-    private LocalDate dateOfBirth;
+
+    @DateTimeFormat
+    private LocalDate dateOfBirth; //n posso por notempty
 
     @NotEmpty
     @Email
