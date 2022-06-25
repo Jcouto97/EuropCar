@@ -15,6 +15,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @ToString
 public class RentalDto2 {
+    //filtrar para retornar id em vez de objetos
+
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
     private Long userId;
