@@ -22,9 +22,10 @@ import java.util.Set;
 @ToString
 
 public class UserDto {
+//se nao quiser que id apareça, apago daqui
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Long id;
+//    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+//    private Long id;
 
     @NotEmpty
     @Size(min = 2, message = "user name should have at least 2 characters")

@@ -21,7 +21,7 @@ public class Rental {
     private Long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userIdFk", referencedColumnName = "id")
+    @JoinColumn(name = "userIdFk", referencedColumnName = "id") //userIdFk == ao id do user
     private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)

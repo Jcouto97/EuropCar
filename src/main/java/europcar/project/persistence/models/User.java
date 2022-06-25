@@ -45,6 +45,7 @@ public class User {
 
     //metodo no controller para vir buscar aqui ao user
     public void addRental(Rental rental) {
+        //funçao verifica se isrenting true
         this.rentals.add(rental);
     }
 }

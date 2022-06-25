@@ -90,14 +90,18 @@ public class RentalServiceImp implements RentalServiceI {
         return this.converter.entityToDto(this.repository.save(rental));
     }
 
-    public void returnVehicle(Long userId, Long vehicleId) {
+    public RentalDto returnVehicle(Long userId) {
         User user = this.userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
         Rental rental = user.getRentals().stream()
-                .filter(rent -> rent.getVehicle().getId().equals(vehicleId))
-                .findFirst().orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND));
+                .filter(rent -> rent.getReturnDate() == null)
+                .findFirst().orElseThrow(() -> new RentalNotFoundException(RENTAL_NOT_FOUND));
 
         rental.setReturnDate(LocalDate.now());
-        this.repository.save(rental);
+
+        user.setRenting(false);
+        rental.getVehicle().setRented(false);
+
+        return this.converter.entityToDto(this.repository.save(rental)); //update ao que ja esta para ter data nova
     }
 }

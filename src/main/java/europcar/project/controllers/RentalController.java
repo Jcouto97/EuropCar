@@ -46,15 +46,14 @@ public class RentalController {
         return this.rentalServiceI.updateRental(id, rentalUpdateDto);
     }
 
-    @GetMapping("/rent/user/{userId}/vehicle/{vehicleId}")
+    @PostMapping("/rent/user/{userId}/vehicle/{vehicleId}")
     public RentalDto rentVehicle(@PathVariable("userId") Long userId,
                                  @PathVariable("vehicleId") Long vehicleId) {
         return this.rentalServiceI.rentVehicle(userId, vehicleId);
     }
 
     @PostMapping("/return/user/{userId}/vehicle/{vehicleId}")
-    public void returnVehicle(@PathVariable("userId") Long userId,
-                              @PathVariable("vehicleId") Long vehicleId) {
-        this.rentalServiceI.returnVehicle(userId, vehicleId);
+    public RentalDto returnVehicle(@PathVariable("userId") Long userId) {
+        return this.rentalServiceI.returnVehicle(userId);
     }
 }
