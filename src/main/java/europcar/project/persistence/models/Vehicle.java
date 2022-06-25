@@ -45,4 +45,8 @@ public class Vehicle {
     private LocalDate productionDate;// 2022-06-13
     private LocalDate registrationDate;// 2022-06-13
     private boolean isRented;
+
+    public void addRental(Rental rental) {
+        this.rentals.add(rental);
+    }
 }

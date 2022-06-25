@@ -1,5 +1,6 @@
 package europcar.project.services;
 
+import europcar.project.command.RentalDto;
 import europcar.project.command.UserDto;
 import europcar.project.command.UserUpdateDto;
 import europcar.project.persistence.models.User;
@@ -22,4 +23,6 @@ public interface UserServiceI {
     List<UserDto> getUserByName(String userName);
 
     List<UserDto> signUpAll(Populate<UserDto> usersList);
+
+    List<RentalDto> getRents(Long id);
 }

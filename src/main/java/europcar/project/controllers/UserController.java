@@ -1,6 +1,7 @@
 package europcar.project.controllers;
 
 
+import europcar.project.command.RentalDto;
 import europcar.project.command.UserDto;
 import europcar.project.command.UserUpdateDto;
 import europcar.project.persistence.models.User;
@@ -58,5 +59,10 @@ public class UserController {
     public ResponseEntity<UserDto> updateStudent(@PathVariable("UserID") Long id, @Valid @RequestBody UserUpdateDto userUpdateDto) {
         UserDto userUpdated = this.userServiceI.updateUser(id, userUpdateDto);
         return new ResponseEntity<>(userUpdated, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/rents")
+    public List<RentalDto> getRents(@PathVariable("id") Long id) {
+        return this.userServiceI.getRents(id);
     }
 }

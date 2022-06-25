@@ -1,14 +1,17 @@
 package europcar.project.services;
 
+import europcar.project.command.RentalDto;
 import europcar.project.command.UserDto;
 import europcar.project.command.UserUpdateDto;
 import europcar.project.converters.UserConverterImp;
 import europcar.project.exceptions.UserAlreadyExists;
 import europcar.project.exceptions.UserNotFoundException;
+import europcar.project.persistence.models.Rental;
 import europcar.project.persistence.models.User;
 import europcar.project.persistence.repositories.Populate;
 import europcar.project.persistence.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,9 +21,10 @@ import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.*;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImp implements UserServiceI{
+public class UserServiceImp implements UserServiceI {
     private UserRepository userRepository;
     private UserConverterImp userConverterImp;
+    private ModelMapper modelMapper;
 
 
     @Override
@@ -30,7 +34,7 @@ public class UserServiceImp implements UserServiceI{
 
     @Override
     public UserDto getUserById(Long userId) {
-        User user = this.userRepository.findById(userId).orElseThrow(()-> new UserNotFoundException(USER_NOT_FOUND)); //n da?
+        User user = this.userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND)); //n da?
         return userConverterImp.entityToDto(user);
     }
 
@@ -38,7 +42,7 @@ public class UserServiceImp implements UserServiceI{
     public List<UserDto> getUserByName(String userName) { //qd + que 1 com nome igual parte
         List<User> users = this.userRepository.findByName(userName);
 
-        if(users.isEmpty()){
+        if (users.isEmpty()) {
             throw new UserNotFoundException(USER_NAME_NOT_FOUND);
         }
 
@@ -66,14 +70,14 @@ public class UserServiceImp implements UserServiceI{
     public List<UserDto> signUpAll(Populate<UserDto> usersList) {
         List<User> users = this.userConverterImp.convertDtoListToEntityList(usersList.getList()); //para ir buscar atributo de lista a classe populate
 
-        List <User> savedUsers= this.userRepository.saveAll(users);
+        List<User> savedUsers = this.userRepository.saveAll(users);
 
         return userConverterImp.convertEntityListToDtoList(savedUsers);
     }
 
     @Override
     public UserDto deleteUser(Long userId) {
-        User userToDelete = userRepository.findById(userId).orElseThrow(()-> new UserNotFoundException(USER_NOT_FOUND));
+        User userToDelete = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
         this.userRepository.deleteById(userId);
 
         return userConverterImp.entityToDto(userToDelete);
@@ -81,7 +85,7 @@ public class UserServiceImp implements UserServiceI{
 
     @Override
     public UserDto updateUser(Long id, UserUpdateDto userUpdateDto) {
-        User originalUser = this.userRepository.findById(id).orElseThrow(()-> new UserNotFoundException(USER_NOT_FOUND));
+        User originalUser = this.userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
 
         User updated = userConverterImp.updateDtoToEntity(userUpdateDto, originalUser);
 
@@ -90,8 +94,12 @@ public class UserServiceImp implements UserServiceI{
         return userConverterImp.entityToDto(updated);
     }
 
-
-
-
-
+    @Override
+    public List<RentalDto> getRents(Long id) {
+        return this.userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(USER_NAME_NOT_FOUND))
+                .getRentals().stream()
+                .map(rent -> this.modelMapper.map(rent, RentalDto.class))
+                .toList();
+    }
 }
