@@ -99,10 +99,5 @@ public class RentalServiceImp implements RentalServiceI {
 
         rental.setReturnDate(LocalDate.now());
         this.repository.save(rental);
-
-
-        //User user = this.userRepository.findById(userId)
-        //        .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
-        //user.getRentals()
     }
 }

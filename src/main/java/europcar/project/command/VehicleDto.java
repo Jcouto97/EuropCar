@@ -22,14 +22,11 @@ public class VehicleDto {
     @Column(unique = true, updatable = false)
     private String licensePlate;
 
-    private Long rentalId;
-    private String type; //car/motorbike/boat, etc
-    private String model;
-    private String color;
+//    private String type; //car/motorbike/boat, etc
+//    private Branch branch;
+//    private String color;
     private Long numOfSeats;
     private Long pricePerHour;
     private LocalDate productionDate;// 2022-06-13
     private LocalDate registrationDate = LocalDate.of(2022, Month.JUNE, 23);
-
-
 }

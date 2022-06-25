@@ -31,19 +31,12 @@ public class VehicleServiceImp implements VehicleServiceI {
         return this.vehicleConverter.entityToDto(vehicleById);
     }
 
-    @Override
-    public List <VehicleDto> getVehicleByModel(String model) {
-        List <Vehicle> vehicleByModel = this.vehicleJpaRepository.findByModel(model);
-        if(vehicleByModel.isEmpty()) throw new VehicleNotFoundException(VEHICLE_NOT_FOUND);
-        return this.vehicleConverter.convertEntityListToDtoList(vehicleByModel);
-    }
-
-    @Override
-    public List<VehicleDto> getVehicleByType(String type) {
-        List <Vehicle> vehicleByType = this.vehicleJpaRepository.findByType(type);
-        if(vehicleByType.isEmpty()) throw new VehicleNotFoundException(VEHICLE_NOT_FOUND);
-        return this.vehicleConverter.convertEntityListToDtoList(vehicleByType);
-    }
+//    @Override
+//    public List<VehicleDto> getVehicleByType(String type) {
+//        List<Vehicle> vehicleByType = this.vehicleJpaRepository.findByType(type);
+//        if (vehicleByType.isEmpty()) throw new VehicleNotFoundException(VEHICLE_NOT_FOUND);
+//        return this.vehicleConverter.convertEntityListToDtoList(vehicleByType);
+//    }
 
     public VehicleDto addVehicle(VehicleDto vehicleDto) {
         Vehicle vehicle = vehicleConverter.dtoToEntity(vehicleDto);
@@ -62,5 +55,4 @@ public class VehicleServiceImp implements VehicleServiceI {
         this.vehicleJpaRepository.delete(vehicleJpaRepository.findById(id)
                 .orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND)));
     }
-
 }
