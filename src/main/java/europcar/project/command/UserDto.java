@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import europcar.project.persistence.models.Rental;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -31,7 +30,7 @@ public class UserDto {
     @Size(min = 2, message = "user name should have at least 2 characters")
     private String name;
 
-    @DateTimeFormat
+    //@DateTimeFormat
     private LocalDate dateOfBirth; //n posso por notempty
 
     @NotEmpty
@@ -47,5 +46,10 @@ public class UserDto {
     @Size(min = 8, max = 8, message = "Drivers license must have 8 characters")
     private String driversLicense;
     private boolean isRenting;
+
+//    @JsonIgnore //para problema de recursividade
+//    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
+//            cascade = CascadeType.ALL)
+//    private Set<Rental> rentals = new HashSet<>();
 
 }

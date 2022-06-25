@@ -1,14 +1,12 @@
 package europcar.project.persistence.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @Entity
@@ -33,6 +31,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Column(nullable = false, unique = true)
@@ -47,9 +46,5 @@ public class User {
     //metodo no controller para vir buscar aqui ao user
     public void addRental(Rental rental) {
         this.rentals.add(rental);
-    }
-
-    public void removeRental(Rental rental) {
-        this.rentals.remove(rental);
     }
 }

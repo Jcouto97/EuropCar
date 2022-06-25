@@ -27,42 +27,30 @@ public class VehicleController {
 
     @GetMapping("byId/{id}")
     public ResponseEntity<VehicleDto> getVehicleById(@PathVariable("id") Long id) throws Throwable {
-    VehicleDto vehicleDto = this.vehicleServiceI.getVehicleById(id);
+        VehicleDto vehicleDto = this.vehicleServiceI.getVehicleById(id);
         return new ResponseEntity<>(vehicleDto, HttpStatus.OK);
     }
 
-    @GetMapping("byModel/{model}")
-    public ResponseEntity<List <VehicleDto>> getVehicleByModel(@PathVariable("model") String model) throws Throwable {
-        List <VehicleDto> vehicleDto = this.vehicleServiceI.getVehicleByModel(model);
-        return new ResponseEntity<>(vehicleDto, HttpStatus.OK);
-    }
-
-    @GetMapping("{type}")
-    public ResponseEntity<List <VehicleDto>> getVehicleByType(@PathVariable("type") String type) throws Throwable {
-        List <VehicleDto> vehicleDto = this.vehicleServiceI.getVehicleByType(type);
-        return new ResponseEntity<>(vehicleDto, HttpStatus.OK);
-    }
-
-
+//    @GetMapping("{type}")
+//    public ResponseEntity<List<VehicleDto>> getVehicleByType(@PathVariable("type") String type) throws Throwable {
+//        List<VehicleDto> vehicleDto = this.vehicleServiceI.getVehicleByType(type);
+//        return new ResponseEntity<>(vehicleDto, HttpStatus.OK);
+//    }
 
     @PostMapping
-    public ResponseEntity<VehicleDto> addNewVehicle(@RequestBody VehicleDto requestVehicleDto) {
-        VehicleDto responseVehicleDto = this.vehicleServiceI.addVehicle(requestVehicleDto);
-        return new ResponseEntity<>(responseVehicleDto, HttpStatus.OK);
+    public VehicleDto addNewVehicle(@RequestBody VehicleDto requestVehicleDto) {
+        return this.vehicleServiceI.addVehicle(requestVehicleDto);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<VehicleDto> updateVehicle(@PathVariable("id") Long id, @Valid @RequestBody VehicleUpdateDto vehicleUpdateDto) {
         VehicleDto vehicleUpdated = this.vehicleServiceI.updateVehicle(id, vehicleUpdateDto);
         return new ResponseEntity<>(vehicleUpdated, HttpStatus.OK);
-
     }
 
-
-   @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteVehicle(@PathVariable("id") Long id) {
-       this.vehicleServiceI.deleteVehicle(id);
-       return  new ResponseEntity<>("Vehicle with the ID " + id + " was removed from the database.", HttpStatus.OK);
-   }
-
+        this.vehicleServiceI.deleteVehicle(id);
+        return new ResponseEntity<>("Vehicle with the ID " + id + " was removed from the database.", HttpStatus.OK);
+    }
 }

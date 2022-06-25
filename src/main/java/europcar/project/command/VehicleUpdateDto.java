@@ -24,14 +24,11 @@ public class VehicleUpdateDto {
     @Size(min = 2, message = "License plate should have at least 2 characters")
     private String licensePlate;
 
-    private Long rentalId;
-    private String type; //car/motorbike/boat, etc
-    private String model;
-    private String color;
+//    private String type; //car/motorbike/boat, etc
+//    private String brand;
+//    private String color;
     private Long numOfSeats;
     private Long pricePerHour;
     private LocalDate productionDate;// 2022-06-13
     private LocalDate registrationDate;
-
-
 }

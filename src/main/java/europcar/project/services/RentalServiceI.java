@@ -21,5 +21,5 @@ public interface RentalServiceI {
 
     RentalDto rentVehicle(Long userId, Long vehicleId);
 
-    List<Rental> returnVehicle(Long userId);
+    void returnVehicle(Long userId, Long vehicleId);
 }

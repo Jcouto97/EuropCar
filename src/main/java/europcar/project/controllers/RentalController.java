@@ -52,9 +52,9 @@ public class RentalController {
         return this.rentalServiceI.rentVehicle(userId, vehicleId);
     }
 
-    @PostMapping("/rent/user/{userId}/vehicle/{vehicleId}")
-    public List<Rental> returnVehicle(@PathVariable("userId") Long userId,
-                                      @PathVariable("vehicleId") Long vehicleId) {
-        return this.rentalServiceI.returnVehicle(userId);
+    @PostMapping("/return/user/{userId}/vehicle/{vehicleId}")
+    public void returnVehicle(@PathVariable("userId") Long userId,
+                              @PathVariable("vehicleId") Long vehicleId) {
+        this.rentalServiceI.returnVehicle(userId, vehicleId);
     }
 }
