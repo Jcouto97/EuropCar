@@ -1,5 +1,6 @@
 package europcar.project.config;
 
+import europcar.project.converters.AgencyConverterImp;
 import europcar.project.converters.UserConverterImp;
 import europcar.project.persistence.models.Rental;
 import europcar.project.persistence.models.User;
@@ -15,8 +16,4 @@ public class BeansInnit {
         return new ModelMapper();
     }
 
-    @Bean
-    public UserConverterImp UserConverterImp() {
-        return new UserConverterImp(new ModelMapper());
-    }
 }

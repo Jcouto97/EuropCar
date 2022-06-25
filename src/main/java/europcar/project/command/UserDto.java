@@ -48,9 +48,4 @@ public class UserDto {
     private String driversLicense;
     private boolean isRenting;
 
-    @JsonIgnore //para problema de recursividade
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL)
-    private Set<Rental> rentals = new HashSet<>();
-
 }

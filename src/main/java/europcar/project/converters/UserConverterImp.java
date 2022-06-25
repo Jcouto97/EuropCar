@@ -5,10 +5,12 @@ import europcar.project.command.UserUpdateDto;
 import europcar.project.persistence.models.User;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @AllArgsConstructor
+@Component
 public class UserConverterImp implements DtoConvertersI<User, UserDto, UserUpdateDto>{
 
     private final ModelMapper MODEL_MAPPER;

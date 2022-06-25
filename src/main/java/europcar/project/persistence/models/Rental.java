@@ -28,6 +28,10 @@ public class Rental {
     @JoinColumn(name = "vehicleIdFk", referencedColumnName = "id")
     private Vehicle vehicle;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "agencyIdFk", referencedColumnName = "id")
+    private Agency agency;
+
     private LocalDate rentDate;
     private LocalDate returnDate;
     private int missingFuelPrice;
