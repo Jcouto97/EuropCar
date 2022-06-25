@@ -26,9 +26,8 @@ public class UserController {
     }
 
     @GetMapping(path = "/byid/{UserId}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable("UserId") Long userId){
-        UserDto userFound = this.userServiceI.getUserById(userId);
-        return new ResponseEntity<>(userFound, HttpStatus.OK);
+    public UserDto getUserById(@PathVariable("UserId") Long userId){
+        return this.userServiceI.getUserById(userId);
     }
 
     @GetMapping(path = "/byname/{UserName}")
@@ -37,27 +36,23 @@ public class UserController {
     }
 
     @PostMapping(path = "/signupall/")
-    public ResponseEntity<List<UserDto>> signUpAll(@Valid @RequestBody Populate<UserDto> usersList){
-        List<UserDto> responseDtoList = this.userServiceI.signUpAll(usersList);
-        return new ResponseEntity<>(responseDtoList, HttpStatus.OK);
+    public List<UserDto> signUpAll(@Valid @RequestBody Populate<UserDto> usersList){
+        return this.userServiceI.signUpAll(usersList);
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> signUp(@Valid @RequestBody UserDto userDto){
-        UserDto responseDto = this.userServiceI.signUp(userDto);
-        return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    public UserDto signUp(@Valid @RequestBody UserDto userDto){
+        return this.userServiceI.signUp(userDto);
     }
 
     @DeleteMapping(path = "/{UserId}")
-    public ResponseEntity<UserDto> deleteUser(@PathVariable("UserId") Long userId){
-        UserDto userDeleted = this.userServiceI.deleteUser(userId);
-        return new ResponseEntity<>(userDeleted, HttpStatus.OK);
+    public UserDto deleteUser(@PathVariable("UserId") Long userId){
+        return this.userServiceI.deleteUser(userId);
     }
 
     @PutMapping(path = "/{UserID}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable("UserID") Long id, @Valid @RequestBody UserUpdateDto userUpdateDto) {
-        UserDto userUpdated = this.userServiceI.updateUser(id, userUpdateDto);
-        return new ResponseEntity<>(userUpdated, HttpStatus.OK);
+    public UserDto updateUser(@PathVariable("UserID") Long id, @Valid @RequestBody UserUpdateDto userUpdateDto) {
+        return this.userServiceI.updateUser(id, userUpdateDto);
     }
 
     @GetMapping("/{id}/rents")
