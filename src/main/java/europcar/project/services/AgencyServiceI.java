@@ -10,4 +10,7 @@ public interface AgencyServiceI {
 
 
     AgencyDto createAgency(Agency agency);
+
+
+    AgencyDto getAgencyById(Long agencyId);
 }

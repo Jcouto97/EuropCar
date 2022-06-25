@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
 
 public class AgencyDto {
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY) //write only para n aparecer id?
     private Long id;
 
     @NotEmpty

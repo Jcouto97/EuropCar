@@ -29,4 +29,12 @@ public class AgencyServiceImp implements AgencyServiceI{
         return this.agencyConverterImp.entityToDto(agencySaved);
     }
 
+    @Override
+    public AgencyDto getAgencyById(Long agencyId) {
+
+        Agency agency = this.agencyRepository.findById(agencyId).orElse(null);
+
+        return this.agencyConverterImp.entityToDto(agency);
+    }
+
 }
