@@ -1,6 +1,7 @@
 package europcar.project.controllers;
 
 import europcar.project.command.RentalDto;
+import europcar.project.command.RentalDto2;
 import europcar.project.command.RentalUpdateDto;
 import europcar.project.persistence.models.Rental;
 import europcar.project.services.RentalServiceI;
@@ -47,13 +48,13 @@ public class RentalController {
     }
 
     @PostMapping("/rent/user/{userId}/vehicle/{vehicleId}")
-    public RentalDto rentVehicle(@PathVariable("userId") Long userId,
-                                 @PathVariable("vehicleId") Long vehicleId) {
+    public RentalDto2 rentVehicle(@PathVariable("userId") Long userId,
+                                  @PathVariable("vehicleId") Long vehicleId) {
         return this.rentalServiceI.rentVehicle(userId, vehicleId);
     }
 
     @PostMapping("/return/user/{userId}/vehicle/{vehicleId}")
-    public RentalDto returnVehicle(@PathVariable("userId") Long userId) {
+    public RentalDto2 returnVehicle(@PathVariable("userId") Long userId) {
         return this.rentalServiceI.returnVehicle(userId);
     }
 }

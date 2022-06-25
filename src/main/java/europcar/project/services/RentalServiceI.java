@@ -1,6 +1,7 @@
 package europcar.project.services;
 
 import europcar.project.command.RentalDto;
+import europcar.project.command.RentalDto2;
 import europcar.project.command.RentalUpdateDto;
 import europcar.project.persistence.models.Rental;
 
@@ -19,7 +20,9 @@ public interface RentalServiceI {
 
 //    List<RentalDto> getRentalByUser(Long id);
 
-    RentalDto rentVehicle(Long userId, Long vehicleId);
+    RentalDto2 rentVehicle(Long userId, Long vehicleId);
 
-    RentalDto returnVehicle(Long userId);
+    RentalDto2 returnVehicle(Long userId);
+
+
 }

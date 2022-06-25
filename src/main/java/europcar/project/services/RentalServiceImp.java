@@ -1,6 +1,7 @@
 package europcar.project.services;
 
 import europcar.project.command.RentalDto;
+import europcar.project.command.RentalDto2;
 import europcar.project.command.RentalUpdateDto;
 import europcar.project.converters.RentalConverter;
 import europcar.project.exceptions.RentalNotFoundException;
@@ -68,7 +69,7 @@ public class RentalServiceImp implements RentalServiceI {
                 this.repository.save(updatedRental));
     }
 
-    public RentalDto rentVehicle(Long userId, Long vehicleId) {
+    public RentalDto2 rentVehicle(Long userId, Long vehicleId) {
         User user = this.userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
         if (user.isRenting()) throw new RentingException(USER_RENTING);
@@ -87,10 +88,15 @@ public class RentalServiceImp implements RentalServiceI {
                 .build();
         user.addRental(rental);
         vehicle.addRental(rental);
-        return this.converter.entityToDto(this.repository.save(rental));
+        Rental savedRental = this.repository.save(rental);
+        RentalDto2 rentalDto2 = this.converter.entityToDto2(savedRental);
+        rentalDto2.setVehicleId(vehicle.getId());
+        rentalDto2.setUserId(user.getId());
+
+        return rentalDto2;
     }
 
-    public RentalDto returnVehicle(Long userId) {
+    public RentalDto2 returnVehicle(Long userId) {
         User user = this.userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
         Rental rental = user.getRentals().stream()
@@ -102,6 +108,6 @@ public class RentalServiceImp implements RentalServiceI {
         user.setRenting(false);
         rental.getVehicle().setRented(false);
 
-        return this.converter.entityToDto(this.repository.save(rental)); //update ao que ja esta para ter data nova
+        return this.converter.entityToDto2(this.repository.save(rental)); //update ao que ja esta para ter data nova
     }
 }

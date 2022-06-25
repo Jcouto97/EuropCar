@@ -1,6 +1,7 @@
 package europcar.project.converters;
 
 import europcar.project.command.RentalDto;
+import europcar.project.command.RentalDto2;
 import europcar.project.command.RentalUpdateDto;
 import europcar.project.persistence.models.Rental;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,11 @@ public class RentalConverter implements DtoConvertersI<Rental, RentalDto, Rental
     @Override
     public RentalDto entityToDto(Rental rental) {
         return this.MODEL_MAPPER.map(rental, RentalDto.class);
+    }
+
+
+    public RentalDto2 entityToDto2(Rental rental) {
+        return this.MODEL_MAPPER.map(rental, RentalDto2.class);
     }
 
     @Override
