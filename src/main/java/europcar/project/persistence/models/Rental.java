@@ -28,9 +28,10 @@ public class Rental {
     @JoinColumn(name = "vehicleId", referencedColumnName = "id")
     private Vehicle vehicle;
 
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "agencyId", referencedColumnName = "id")
     private Agency agency;
+
 
     private LocalDate rentDate;
     private LocalDate returnDate;

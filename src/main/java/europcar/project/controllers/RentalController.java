@@ -43,8 +43,9 @@ public class RentalController {
 
     @PostMapping("/rent")
     public RentalDto rentVehicle(@RequestParam(value = "user") Long userId,
-                                 @RequestParam(value = "vehicle") Long vehicleId) {
-        return this.rentalServiceI.rentVehicle(userId, vehicleId);
+                                 @RequestParam(value = "vehicle") Long vehicleId,
+                                 @RequestParam(value = "agency") Long agencyId) {
+        return this.rentalServiceI.rentVehicle(userId, vehicleId, agencyId);
     }
 
     @PutMapping("/return/user/{id}")

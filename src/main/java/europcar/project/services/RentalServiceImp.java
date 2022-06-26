@@ -2,13 +2,12 @@ package europcar.project.services;
 
 import europcar.project.command.RentalDto;
 import europcar.project.converters.RentalConverterImp;
-import europcar.project.exceptions.RentalNotFoundException;
-import europcar.project.exceptions.RentingException;
-import europcar.project.exceptions.UserNotFoundException;
-import europcar.project.exceptions.VehicleNotFoundException;
+import europcar.project.exceptions.*;
+import europcar.project.persistence.models.Agency;
 import europcar.project.persistence.models.Rental;
 import europcar.project.persistence.models.User;
 import europcar.project.persistence.models.Vehicle;
+import europcar.project.persistence.repositories.AgencyRepository;
 import europcar.project.persistence.repositories.RentalsRepositoryI;
 import europcar.project.persistence.repositories.UserRepository;
 import europcar.project.persistence.repositories.VehicleRepository;
@@ -28,6 +27,7 @@ public class RentalServiceImp implements RentalServiceI {
     private RentalConverterImp converter;
     private UserRepository userRepository;
     private VehicleRepository vehicleRepository;
+    private AgencyRepository agencyRepository;
 
     @Override
     public List<RentalDto> getRentals() {
@@ -68,7 +68,7 @@ public class RentalServiceImp implements RentalServiceI {
         this.repository.delete(rental);
     }
 
-    public RentalDto rentVehicle(Long userId, Long vehicleId) {
+    public RentalDto rentVehicle(Long userId, Long vehicleId, Long angencyId) {
         User user = this.userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
         if (user.isRenting()) throw new RentingException(USER_RENTING);
@@ -82,12 +82,17 @@ public class RentalServiceImp implements RentalServiceI {
                 .orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND));
         if (vehicle.isRented()) throw new RentingException(String.format(VEHICLE_RENTED));
 
+        Agency agency = this.agencyRepository.findById(angencyId)
+                .orElseThrow(() -> new AgencyNotFoundException(AGENCY_NOT_FOUND));
+
+
         user.setRenting(true);
         vehicle.setRented(true);
 
         Rental rental = getRental(user, vehicle);
         user.addRental(rental);
         vehicle.addRental(rental);
+        rental.setAgency(agency);
 
         Rental savedRental = this.repository.save(rental);
         RentalDto rentalDto = this.converter.entityToDto(savedRental);

@@ -28,6 +28,10 @@ public class Agency {
 
     @JsonIgnore //para problema de recursividade
     @OneToMany(mappedBy = "agency", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.DETACH)
     private List<Rental> rentals;
+
+    public void addRental(Rental rental) {
+        this.rentals.add(rental);
+    }
 }

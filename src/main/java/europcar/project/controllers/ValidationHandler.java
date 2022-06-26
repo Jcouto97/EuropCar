@@ -35,7 +35,7 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {RentalNotFoundException.class, VehicleNotFoundException.class,
             UserNotFoundException.class, UserAlreadyExists.class, RentingException.class,
-            AtributeNotFoundException.class, AtributeAttachedException.class})
+            AtributeNotFoundException.class, AtributeAttachedException.class, AgencyNotFoundException.class})
     protected ResponseEntity<Object> notFoundHandler(RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }

@@ -15,7 +15,7 @@ public interface RentalServiceI {
 
     void deleteRental(Long id);
 
-    RentalDto rentVehicle(Long userId, Long vehicleId);
+    RentalDto rentVehicle(Long userId, Long vehicleId, Long agencyId);
 
     RentalDto returnVehicle(Long userId);
 

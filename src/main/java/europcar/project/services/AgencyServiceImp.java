@@ -3,6 +3,7 @@ package europcar.project.services;
 import europcar.project.command.AgencyDto;
 import europcar.project.converters.AgencyConverterImp;
 import europcar.project.exceptions.AgencyNotFoundException;
+import europcar.project.exceptions.AtributeAttachedException;
 import europcar.project.persistence.models.Agency;
 import europcar.project.persistence.repositories.AgencyRepository;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.AGENCY_NOT_FOUND;
+import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.ATRIBUTE_ATTACHED;
 
 @Service
 @AllArgsConstructor
@@ -39,8 +41,10 @@ public class AgencyServiceImp implements AgencyServiceI {
     }
 
     public void deleteAgency(Long id) {
-        this.agencyRepository.delete(
-                this.agencyRepository.findById(id)
-                        .orElseThrow(() -> new AgencyNotFoundException(AGENCY_NOT_FOUND)));
+               Agency agency = this.agencyRepository.findById(id).orElseThrow(() -> new AgencyNotFoundException(AGENCY_NOT_FOUND));
+
+        if (!agency.getRentals().isEmpty()) throw new AtributeAttachedException(ATRIBUTE_ATTACHED);
+
+        this.agencyRepository.delete(agency);
     }
 }
