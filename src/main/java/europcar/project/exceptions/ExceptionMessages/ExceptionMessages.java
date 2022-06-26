@@ -11,6 +11,6 @@ public class ExceptionMessages {
     public static final String USER_RENTING = "The user is renting a vehicle";
     public static final String VEHICLE_RENTED = "The vehicle is being rented";
     public static final String NOT_PAID = "You haven't paid the last rent yet";
-
     public static final String ATRIBUTE_ATTACHED = "The atribute is attached to other class";
+    public static final String RENTAL_UP = "The rental is still activated";
 }

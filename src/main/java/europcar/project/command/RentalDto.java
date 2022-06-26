@@ -1,5 +1,6 @@
 package europcar.project.command;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -12,6 +13,8 @@ import java.time.LocalDate;
 @ToString
 public class RentalDto {
     //filtrar para retornar id em vez de objetos
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Long id;
     private Long userId;
     private Long vehicleId;
     private Long agencyId;

@@ -64,7 +64,7 @@ public class RentalServiceImp implements RentalServiceI {
         Rental rental = this.repository.findById(id)
                 .orElseThrow(() -> new RentalNotFoundException(RENTAL_NOT_FOUND));
 
-        if (rental.getReturnDate() == null) throw new RentingException(USER_RENTING);
+        if (rental.getReturnDate() == null || !rental.isPaid()) throw new RentingException(RENTAL_UP);
         this.repository.delete(rental);
     }
 
