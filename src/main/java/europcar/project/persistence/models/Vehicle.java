@@ -1,10 +1,10 @@
 package europcar.project.persistence.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import europcar.project.persistence.models.VehicleAtributes.Brand;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,31 +23,29 @@ public class Vehicle {
     @Column(nullable = false, unique = true, updatable = false)
     private Long id;
 
-    private String name;
-
     @Column(nullable = false, unique = true, updatable = false)
-    @Size(min = 2, message = "License plate should have at least 2 characters")
     private String licensePlate;
 
     @JsonIgnore
     @OneToMany(mappedBy = "vehicle", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private List<Rental> rentals;
-
-//    private String type; //car/motorbike/boat, etc
-
-//    @ManyToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "branchIdFk", referencedColumnName = "id")
-//    private Brand brand;
-//
-//    private String color;
-    private Long numOfSeats;
-    private Long pricePerHour;
+    private int pricePerDay;
+    private int numOfSeats;
     private LocalDate productionDate;// 2022-06-13
-    private LocalDate registrationDate;// 2022-06-13
-    private boolean isRented;
+    private boolean rented;
 
     public void addRental(Rental rental) {
         this.rentals.add(rental);
     }
+
+    //    private String type; //car/motorbike/boat, etc
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    //DETACH em vez de ALL, porque com ALL, ao apagar um vehículo, todos os vehículos com a mesma marca eram apagados
+    @JoinColumn(name = "brandId", referencedColumnName = "id")
+    private Brand brand;
+//    private String color;
+//    Classes que só têm um Long id e uma String
+//    A List fica do lado dos vehículos
 }

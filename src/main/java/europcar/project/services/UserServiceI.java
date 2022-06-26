@@ -3,9 +3,7 @@ package europcar.project.services;
 import europcar.project.command.RentalDto;
 import europcar.project.command.UserDto;
 import europcar.project.command.UserUpdateDto;
-import europcar.project.persistence.models.User;
-import europcar.project.persistence.repositories.Populate;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 
 import java.util.List;
 
@@ -14,15 +12,13 @@ public interface UserServiceI {
 
     UserDto signUp(UserDto userDto);
 
-    UserDto deleteUser(Long userId);
+    void deleteUser(Long userId);
 
     UserDto updateUser(Long id, UserUpdateDto userUpdateDto);
 
     UserDto getUserById(Long userId);
 
     List<UserDto> getUserByName(String userName);
-
-    List<UserDto> signUpAll(Populate<UserDto> usersList);
 
     List<RentalDto> getRents(Long id);
 }

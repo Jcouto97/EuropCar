@@ -1,7 +1,6 @@
 package europcar.project.converters;
 
 import europcar.project.command.AgencyDto;
-import europcar.project.command.AgencyUpdateDto;
 import europcar.project.persistence.models.Agency;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -11,7 +10,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @Component
-public class AgencyConverterImp implements DtoConvertersI<Agency, AgencyDto, AgencyUpdateDto> {
+public class AgencyConverterImp implements DtoConvertersI<Agency, AgencyDto> {
 
     private final ModelMapper MODEL_MAPPER;
 
@@ -27,23 +26,8 @@ public class AgencyConverterImp implements DtoConvertersI<Agency, AgencyDto, Age
     }
 
     @Override
-    public AgencyUpdateDto entityToUpdateDto(Agency agency) {
-        return null;
-    }
-
-    @Override
-    public Agency updateDtoToEntity(AgencyUpdateDto agencyUpdateDto, Agency agency) {
-        return null;
-    }
-
-    @Override
-    public List<AgencyDto> convertEntityListToDtoList(List<Agency> agencies) {
+    public List<AgencyDto> entityListToDtoList(List<Agency> agencies) {
 
         return agencies.stream().map(agency -> this.MODEL_MAPPER.map(agency, AgencyDto.class)).toList();
-    }
-
-    @Override
-    public List<Agency> convertDtoListToEntityList(List<AgencyDto> agencyDtos) {
-        return null;
     }
 }

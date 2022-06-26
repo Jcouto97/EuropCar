@@ -11,10 +11,9 @@ import java.util.List;
 
 @AllArgsConstructor
 @Component
-public class UserConverterImp implements DtoConvertersI<User, UserDto, UserUpdateDto>{
+public class UserConverterImp implements DtoConvertersI<User, UserDto>, UpdateDtoConverterI<User, UserUpdateDto> {
 
     private final ModelMapper MODEL_MAPPER;
-
 
     @Override
     public UserDto entityToDto(User user) {
@@ -39,14 +38,9 @@ public class UserConverterImp implements DtoConvertersI<User, UserDto, UserUpdat
     }
 
     @Override
-    public List<UserDto> convertEntityListToDtoList(List<User> users) {
+    public List<UserDto> entityListToDtoList(List<User> users) {
         return users.stream()
                 .map(this::entityToDto) //????
                 .toList();
-    }
-
-    @Override
-    public List<User> convertDtoListToEntityList(List<UserDto> userDtos) {
-        return null;
     }
 }

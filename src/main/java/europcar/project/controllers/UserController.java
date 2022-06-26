@@ -1,10 +1,8 @@
 package europcar.project.controllers;
 
-
 import europcar.project.command.RentalDto;
 import europcar.project.command.UserDto;
 import europcar.project.command.UserUpdateDto;
-import europcar.project.persistence.repositories.Populate;
 import europcar.project.services.UserServiceI;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -26,28 +24,23 @@ public class UserController {
     }
 
     @GetMapping(path = "/byid/{UserId}")
-    public UserDto getUserById(@PathVariable("UserId") Long userId){
+    public UserDto getUserById(@PathVariable("UserId") Long userId) {
         return this.userServiceI.getUserById(userId);
     }
 
     @GetMapping(path = "/byname/{UserName}")
-    public List<UserDto> getUserByName(@PathVariable("UserName") String userName){
+    public List<UserDto> getUserByName(@PathVariable("UserName") String userName) {
         return this.userServiceI.getUserByName(userName);
     }
 
-    @PostMapping(path = "/signupall/")
-    public List<UserDto> signUpAll(@Valid @RequestBody Populate<UserDto> usersList){
-        return this.userServiceI.signUpAll(usersList);
-    }
-
     @PostMapping
-    public UserDto signUp(@Valid @RequestBody UserDto userDto){
+    public UserDto signUp(@Valid @RequestBody UserDto userDto) {
         return this.userServiceI.signUp(userDto);
     }
 
     @DeleteMapping(path = "/{UserId}")
-    public UserDto deleteUser(@PathVariable("UserId") Long userId){
-        return this.userServiceI.deleteUser(userId);
+    public void deleteUser(@PathVariable("UserId") Long userId) {
+        this.userServiceI.deleteUser(userId);
     }
 
     @PutMapping(path = "/{UserID}")
@@ -55,7 +48,7 @@ public class UserController {
         return this.userServiceI.updateUser(id, userUpdateDto);
     }
 
-    @GetMapping("/{id}/rents")
+    @GetMapping("/rents/{id}")
     public List<RentalDto> getRents(@PathVariable("id") Long id) {
         return this.userServiceI.getRents(id);
     }

@@ -8,9 +8,9 @@ import java.util.List;
 public interface AgencyServiceI {
     List<AgencyDto> getAgenciesList();
 
-
     AgencyDto createAgency(Agency agency);
 
-
     AgencyDto getAgencyById(Long agencyId);
+
+    void deleteAgency(Long id);
 }

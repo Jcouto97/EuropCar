@@ -1,28 +1,23 @@
 package europcar.project.services;
 
 import europcar.project.command.RentalDto;
-import europcar.project.command.RentalDto2;
-import europcar.project.command.RentalUpdateDto;
-import europcar.project.persistence.models.Rental;
 
 import java.util.List;
 
 public interface RentalServiceI {
     List<RentalDto> getRentals();
 
-    RentalDto addRental(RentalDto rentalsDto);
-
     RentalDto getRentalById(Long id);
+
+    List<RentalDto> getRentalsByUser(String userId);
+
+    List<RentalDto> getRentalsByVehicle(Long vehicleId);
 
     void deleteRental(Long id);
 
-    RentalUpdateDto updateRental(Long id, RentalUpdateDto rentalUpdateDto);
+    RentalDto rentVehicle(Long userId, Long vehicleId);
 
-//    List<RentalDto> getRentalByUser(Long id);
+    RentalDto returnVehicle(Long userId);
 
-    RentalDto2 rentVehicle(Long userId, Long vehicleId);
-
-    RentalDto2 returnVehicle(Long userId);
-
-
+    int payRent(Long id, int payment);
 }

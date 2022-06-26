@@ -1,9 +1,7 @@
 package europcar.project.services;
 
 import europcar.project.command.RentalDto;
-import europcar.project.command.RentalDto2;
-import europcar.project.command.RentalUpdateDto;
-import europcar.project.converters.RentalConverter;
+import europcar.project.converters.RentalConverterImp;
 import europcar.project.exceptions.RentalNotFoundException;
 import europcar.project.exceptions.RentingException;
 import europcar.project.exceptions.UserNotFoundException;
@@ -11,7 +9,7 @@ import europcar.project.exceptions.VehicleNotFoundException;
 import europcar.project.persistence.models.Rental;
 import europcar.project.persistence.models.User;
 import europcar.project.persistence.models.Vehicle;
-import europcar.project.persistence.repositories.RentalsJpaRepositoryI;
+import europcar.project.persistence.repositories.RentalsRepositoryI;
 import europcar.project.persistence.repositories.UserRepository;
 import europcar.project.persistence.repositories.VehicleRepository;
 import lombok.AllArgsConstructor;
@@ -21,82 +19,92 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.*;
+import static java.time.temporal.ChronoUnit.DAYS;
 
 @Service
 @AllArgsConstructor
 public class RentalServiceImp implements RentalServiceI {
-    private RentalsJpaRepositoryI repository;
-    private RentalConverter converter;
+    private RentalsRepositoryI repository;
+    private RentalConverterImp converter;
     private UserRepository userRepository;
     private VehicleRepository vehicleRepository;
 
     @Override
     public List<RentalDto> getRentals() {
-        return this.converter.convertEntityListToDtoList(this.repository.findAll());
+        return this.converter.entityListToDtoList(this.repository.findAll());
     }
 
+    @Override
     public RentalDto getRentalById(Long id) {
         return this.converter.entityToDto(
                 this.repository.findById(id).orElseThrow(() ->
                         new RentalNotFoundException(RENTAL_NOT_FOUND)));
     }
 
-//    public List<RentalDto> getRentalByUser(Long id) {
-//        return this.converter.convertEntityListToDtoList(
-//                this.repository.findByUser(id));
-//    }
+    @Override
+    public List<RentalDto> getRentalsByUser(String user) {
+        List<Rental> rents;
+        try {
+            Long userId = Long.parseLong(user);
+            rents = this.repository.findByUserId(userId);
+        } catch (Exception e) {
+            rents = this.repository.findByUserName(user);
+        }
+        return this.converter.entityListToDtoList(rents);
+    }
 
     @Override
-    public RentalDto addRental(RentalDto rentalsDto) {
-        return this.converter.entityToDto(
-                this.repository.save(
-                        this.converter.dtoToEntity(rentalsDto)));
+    public List<RentalDto> getRentalsByVehicle(Long vehicleId) {
+        return this.converter.entityListToDtoList(
+                this.repository.findByVehicleId(vehicleId));
     }
 
     @Override
     public void deleteRental(Long id) {
-        this.repository.delete(
-                this.repository.findById(id)
-                        .orElseThrow(() -> new RentalNotFoundException(RENTAL_NOT_FOUND)));
+        Rental rental = this.repository.findById(id)
+                .orElseThrow(() -> new RentalNotFoundException(RENTAL_NOT_FOUND));
+
+        if (rental.getReturnDate() == null) throw new RentingException(USER_RENTING);
+        this.repository.delete(rental);
     }
 
-    @Override
-    public RentalUpdateDto updateRental(Long id, RentalUpdateDto rentalUpdateDto) {
-        Rental rental = this.repository.findById(id).orElseThrow(() ->
-                new RentalNotFoundException(RENTAL_NOT_FOUND));
-        Rental updatedRental = this.converter.updateDtoToEntity(rentalUpdateDto, rental);
-        return this.converter.entityToUpdateDto(
-                this.repository.save(updatedRental));
-    }
-
-    public RentalDto2 rentVehicle(Long userId, Long vehicleId) {
+    public RentalDto rentVehicle(Long userId, Long vehicleId) {
         User user = this.userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
         if (user.isRenting()) throw new RentingException(USER_RENTING);
-        user.setRenting(true);
+
+        //Verifica se o cliente já pagou os rents anteriores
+        user.getRentals().forEach(rent -> {
+            if (!rent.isPaid()) throw new RentingException(NOT_PAID);
+        });
 
         Vehicle vehicle = this.vehicleRepository.findById(vehicleId)
                 .orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND));
-        if (vehicle.isRented()) throw new RentingException(String.format(VEHICLE_RENTING));
+        if (vehicle.isRented()) throw new RentingException(String.format(VEHICLE_RENTED));
+
+        user.setRenting(true);
         vehicle.setRented(true);
 
-        Rental rental = Rental.builder()
+        Rental rental = getRental(user, vehicle);
+        user.addRental(rental);
+        vehicle.addRental(rental);
+
+        Rental savedRental = this.repository.save(rental);
+        RentalDto rentalDto = this.converter.entityToDto(savedRental);
+        rentalDto.setVehicleId(vehicle.getId());
+        rentalDto.setUserId(user.getId());
+        return rentalDto;
+    }
+
+    private Rental getRental(User user, Vehicle vehicle) {
+        return Rental.builder()
                 .user(user)
                 .vehicle(vehicle)
                 .rentDate(LocalDate.now())
-                .missingFuelPrice(2)
                 .build();
-        user.addRental(rental);
-        vehicle.addRental(rental);
-        Rental savedRental = this.repository.save(rental);
-        RentalDto2 rentalDto2 = this.converter.entityToDto2(savedRental);
-        rentalDto2.setVehicleId(vehicle.getId());
-        rentalDto2.setUserId(user.getId());
-
-        return rentalDto2;
     }
 
-    public RentalDto2 returnVehicle(Long userId) {
+    public RentalDto returnVehicle(Long userId) {
         User user = this.userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
         Rental rental = user.getRentals().stream()
@@ -104,10 +112,30 @@ public class RentalServiceImp implements RentalServiceI {
                 .findFirst().orElseThrow(() -> new RentalNotFoundException(RENTAL_NOT_FOUND));
 
         rental.setReturnDate(LocalDate.now());
+        rental.setPrice((int)
+                (DAYS.between(rental.getReturnDate(), rental.getRentDate()) + 1) *
+                rental.getVehicle().getPricePerDay());
 
         user.setRenting(false);
         rental.getVehicle().setRented(false);
 
-        return this.converter.entityToDto2(this.repository.save(rental)); //update ao que ja esta para ter data nova
+        return this.converter.entityToDto(this.repository.save(rental)); //update ao que ja esta para ter data nova
+    }
+
+    public int payRent(Long id, int payment) {
+        User user = this.userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
+
+        Rental rentalToPay = user.getRentals().stream()
+                .filter(rent -> !rent.isPaid() && rent.getReturnDate() != null)
+                .findFirst()
+                .orElseThrow(() -> new RentalNotFoundException(RENTAL_NOT_FOUND));
+
+        int change = payment - rentalToPay.getPrice();
+
+        if (change >= 0) rentalToPay.setPaid(true);
+        else rentalToPay.setPrice(change * -1);
+        this.repository.save(rentalToPay);
+        return change;
     }
 }

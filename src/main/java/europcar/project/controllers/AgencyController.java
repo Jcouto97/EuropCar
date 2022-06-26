@@ -15,20 +15,22 @@ public class AgencyController {
     private AgencyServiceI agencyServiceI;
 
     @GetMapping
-    public List<AgencyDto> getAgenciesList(){
+    public List<AgencyDto> getAgenciesList() {
         return this.agencyServiceI.getAgenciesList();
     }
 
     @GetMapping(path = "/{AgencyId}")
-    public AgencyDto getAgencyById(@PathVariable ("AgencyId") Long agencyId){
+    public AgencyDto getAgencyById(@PathVariable("AgencyId") Long agencyId) {
         return this.agencyServiceI.getAgencyById(agencyId);
     }
 
     @PostMapping
-    public AgencyDto createAgency(@RequestBody Agency agency){
+    public AgencyDto createAgency(@RequestBody Agency agency) {
         return this.agencyServiceI.createAgency(agency);
     }
 
-
-
+    @DeleteMapping("/{id}")
+    public void deleteAgency(@PathVariable("id") Long id) {
+        this.agencyServiceI.deleteAgency(id);
+    }
 }

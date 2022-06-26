@@ -1,8 +1,5 @@
 package europcar.project.command;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import europcar.project.persistence.models.User;
-import europcar.project.persistence.models.Vehicle;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -14,11 +11,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @ToString
 public class RentalDto {
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Long id;
-    private User user;
-    private Vehicle vehicle;
-    private LocalDate rentDate = LocalDate.now();
-    private LocalDate returnDate = LocalDate.now();
-    private int missingFuelPrice = 2;
+    //filtrar para retornar id em vez de objetos
+    private Long userId;
+    private Long vehicleId;
+    private Long agencyId;
+    private LocalDate rentDate;
+    private LocalDate returnDate;
+    private int price;
+    private boolean paid;
 }

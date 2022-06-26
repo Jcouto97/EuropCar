@@ -12,12 +12,10 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @Builder
 @ToString
-
 public class AgencyDto {
-
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY) //write only para n aparecer id?
+    //Quando se faz post, @NotEmpty obriga a preencher o campo. Quando se faz update, retira-se o @NotEmpty para não ser obrigatório preencher o campo
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
-
     @NotEmpty
     @Size(min = 2, message = "Agency name should have at least 2 characters")
     private String name;
@@ -25,6 +23,4 @@ public class AgencyDto {
     @NotEmpty
     @Size(min = 2, message = "Agency location should have at least 3 characters")
     private String location;
-
 }
-

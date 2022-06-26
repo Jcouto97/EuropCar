@@ -20,20 +20,20 @@ public class Rental {
     @Column(nullable = false, unique = true, updatable = false)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userIdFk", referencedColumnName = "id") //userIdFk == ao id do user
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "userId", referencedColumnName = "id") //userIdFk == ao id do user
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "vehicleIdFk", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "vehicleId", referencedColumnName = "id")
     private Vehicle vehicle;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "agencyIdFk", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "agencyId", referencedColumnName = "id")
     private Agency agency;
 
     private LocalDate rentDate;
     private LocalDate returnDate;
-    private int missingFuelPrice;
-    private boolean isPaid;
+    private int price;
+    private boolean paid;
 }

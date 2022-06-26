@@ -16,9 +16,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.RESOURCE_ALREADY_EXISTS;
-import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.USER_NOT_FOUND;
-
-import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.RESOURCE_ALREADY_EXISTS;
 
 @ControllerAdvice
 public class ValidationHandler extends ResponseEntityExceptionHandler {
@@ -37,15 +34,14 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(value = {RentalNotFoundException.class, VehicleNotFoundException.class,
-            UserNotFoundException.class, UserAlreadyExists.class, RentingException.class})
+            UserNotFoundException.class, UserAlreadyExists.class, RentingException.class,
+            AtributeNotFoundException.class, AtributeAttachedException.class})
     protected ResponseEntity<Object> notFoundHandler(RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
     @ExceptionHandler(value = {SQLIntegrityConstraintViolationException.class})
     protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
-        String bodyOfResponse = RESOURCE_ALREADY_EXISTS;
-        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
+        return handleExceptionInternal(ex, RESOURCE_ALREADY_EXISTS, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
-
 }

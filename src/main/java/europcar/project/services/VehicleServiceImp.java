@@ -8,6 +8,8 @@ import europcar.project.persistence.models.Vehicle;
 
 import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.*;
 
+import europcar.project.persistence.models.VehicleAtributes.Brand;
+import europcar.project.persistence.repositories.BrandRepository;
 import europcar.project.persistence.repositories.VehicleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,41 +20,60 @@ import java.util.List;
 @RequiredArgsConstructor
 public class VehicleServiceImp implements VehicleServiceI {
 
-    private final VehicleRepository vehicleJpaRepository;
+    private final VehicleRepository vehicleRepository;
     private final VehicleConverterImpl vehicleConverter;
+    private final BrandRepository brandRepository;
 
-    public List<Vehicle> getVehicles() {
-        return this.vehicleJpaRepository.findAll();
+    //private final ColorRepository colorRepository;
+
+    @Override
+    public List<VehicleDto> getVehicles() {
+        return this.vehicleConverter.entityListToDtoList(
+                this.vehicleRepository.findAll());
     }
 
+    @Override
     public VehicleDto getVehicleById(Long id) {
-        Vehicle vehicleById = this.vehicleJpaRepository.findById(id)
+        Vehicle vehicleById = this.vehicleRepository.findById(id)
                 .orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND));
         return this.vehicleConverter.entityToDto(vehicleById);
     }
 
-//    @Override
-//    public List<VehicleDto> getVehicleByType(String type) {
-//        List<Vehicle> vehicleByType = this.vehicleJpaRepository.findByType(type);
-//        if (vehicleByType.isEmpty()) throw new VehicleNotFoundException(VEHICLE_NOT_FOUND);
-//        return this.vehicleConverter.convertEntityListToDtoList(vehicleByType);
-//    }
+    @Override
+    public List<VehicleDto> getVehicleByBrand(Long brandId) {
+        Brand brand = this.brandRepository.findById(brandId)
+                .orElseThrow(() -> new AtributeNotFoundException(ATRIBUTE_NOT_FOUND));
+        return this.vehicleConverter.entityListToDtoList(
+                this.vehicleRepository.findAllByBrand(brand));
+    }
 
+    @Override
     public VehicleDto addVehicle(VehicleDto vehicleDto) {
         Vehicle vehicle = vehicleConverter.dtoToEntity(vehicleDto);
-        return vehicleConverter.entityToDto(vehicleJpaRepository.save(vehicle));
+        Brand brand = this.brandRepository.findById(vehicleDto.getBrandId())
+                .orElseThrow(() -> new AtributeNotFoundException(ATRIBUTE_NOT_FOUND));
+
+        vehicle.setBrand(brand);
+        brand.addVehicle(vehicle);
+        //Color color = this.colorR.findById(vehicleDto.getColor()).orElseThrow();
+        //Para o type e o brand também
+        //vehicle.setColor(color);
+        return vehicleConverter.entityToDto(vehicleRepository.save(vehicle));
     }
 
     @Override
     public VehicleDto updateVehicle(Long id, VehicleUpdateDto vehicleUpdateDto) {
-        Vehicle vehicle = vehicleConverter.updateDtoToEntity(vehicleUpdateDto, vehicleJpaRepository.findById(id)
+        Vehicle vehicle = vehicleConverter.updateDtoToEntity(vehicleUpdateDto, vehicleRepository.findById(id)
                 .orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND)));
-        return vehicleConverter.entityToDto(vehicleJpaRepository.save(vehicle));
+        return vehicleConverter.entityToDto(vehicleRepository.save(vehicle));
     }
 
     @Override
     public void deleteVehicle(Long id) {
-        this.vehicleJpaRepository.delete(vehicleJpaRepository.findById(id)
-                .orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND)));
+        Vehicle vehicle = this.vehicleRepository.findById(id)
+                .orElseThrow(() -> new VehicleNotFoundException(VEHICLE_NOT_FOUND));
+
+        if (vehicle.isRented()) throw new RentingException(VEHICLE_RENTED);
+        this.vehicleRepository.delete(vehicle);
     }
 }

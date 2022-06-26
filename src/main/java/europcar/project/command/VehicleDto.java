@@ -3,7 +3,7 @@ package europcar.project.command;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -12,21 +12,30 @@ import java.time.Month;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
+@ToString
 public class VehicleDto {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
-    private String name;
-
-    @Column(unique = true, updatable = false)
+    @NotEmpty
+    @Size(min = 2, message = "License plate should have at least 2 characters")
     private String licensePlate;
 
-//    private String type; //car/motorbike/boat, etc
-//    private Branch branch;
-//    private String color;
-    private Long numOfSeats;
-    private Long pricePerHour;
-    private LocalDate productionDate;// 2022-06-13
-    private LocalDate registrationDate = LocalDate.of(2022, Month.JUNE, 23);
+    @Min(1)
+    @Max(200)
+    private int pricePerDay;
+
+    @Min(1)
+    @Max(20)
+    private int numOfSeats;
+    private LocalDate productionDate = LocalDate.of(2022, Month.JANUARY, 1);// 2022-06-13
+
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private boolean rented;
+
+    @NotNull
+    private Long brandId;
+//    private Long type; //car/motorbike/boat, etc
+//    private Long color;
+    //Em princípio só vamos precisar de um DTO com Long Id's em vez das classes Type, Brand e Color
 }

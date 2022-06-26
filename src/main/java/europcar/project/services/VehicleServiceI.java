@@ -10,16 +10,15 @@ import java.util.List;
 @Service
 public interface VehicleServiceI {
 
-    List<Vehicle> getVehicles();
+    List<VehicleDto> getVehicles();
 
-    VehicleDto getVehicleById(Long id) throws Throwable;
+    VehicleDto getVehicleById(Long id);
+
+    List<VehicleDto> getVehicleByBrand(Long brandId);
 
     VehicleDto addVehicle(VehicleDto vehicleDto);
 
-    VehicleDto updateVehicle(Long id, VehicleUpdateDto vehicleUpdateDto);
-
-    //delete
     void deleteVehicle(Long id);
 
-//    List<VehicleDto> getVehicleByType(String type);
+    VehicleDto updateVehicle(Long id, VehicleUpdateDto vehicleUpdateDto);
 }

@@ -1,11 +1,10 @@
 package europcar.project.controllers;
 
 import europcar.project.command.RentalDto;
-import europcar.project.command.RentalDto2;
-import europcar.project.command.RentalUpdateDto;
-import europcar.project.persistence.models.Rental;
 import europcar.project.services.RentalServiceI;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,14 +26,14 @@ public class RentalController {
         return this.rentalServiceI.getRentalById(id);
     }
 
-//    @GetMapping("clientid/{id}")
-//    public List<RentalDto> getRentalsByUser(@PathVariable("id") Long id) {
-//        return this.rentalServiceI.getRentalByUser(id);
-//    }
+    @GetMapping("/user/{id}")
+    public List<RentalDto> getRentsByUser(@PathVariable("id") String user) {
+        return this.rentalServiceI.getRentalsByUser(user);
+    }
 
-    @PostMapping
-    public RentalDto addRental(@Valid @RequestBody RentalDto rentalDto) {
-        return this.rentalServiceI.addRental(rentalDto);
+    @GetMapping("/vehicle/{id}")
+    public List<RentalDto> getRentsByVehicle(@PathVariable("id") Long vehicleId) {
+        return this.rentalServiceI.getRentalsByVehicle(vehicleId);
     }
 
     @DeleteMapping("/{id}")
@@ -42,19 +41,25 @@ public class RentalController {
         this.rentalServiceI.deleteRental(id);
     }
 
-    @PutMapping("/{id}")
-    public RentalUpdateDto updateRental(@PathVariable("id") Long id, @Valid @RequestBody RentalUpdateDto rentalUpdateDto) {
-        return this.rentalServiceI.updateRental(id, rentalUpdateDto);
-    }
-
-    @PostMapping("/rent/user/{userId}/vehicle/{vehicleId}")
-    public RentalDto2 rentVehicle(@PathVariable("userId") Long userId,
-                                  @PathVariable("vehicleId") Long vehicleId) {
+    @PostMapping("/rent")
+    public RentalDto rentVehicle(@RequestParam(value = "user") Long userId,
+                                 @RequestParam(value = "vehicle") Long vehicleId) {
         return this.rentalServiceI.rentVehicle(userId, vehicleId);
     }
 
-    @PostMapping("/return/user/{userId}/vehicle/{vehicleId}")
-    public RentalDto2 returnVehicle(@PathVariable("userId") Long userId) {
+    @PutMapping("/return/user/{id}")
+    public RentalDto returnVehicle(@PathVariable("id") Long userId) {
         return this.rentalServiceI.returnVehicle(userId);
+    }
+
+    @PutMapping("/pay/user/{id}")
+    public ResponseEntity<String> payRent(@PathVariable("id") Long userId,
+                                          @Valid @RequestBody int payment) {
+        if (payment <= 0) return new ResponseEntity<>("Value not allowed", HttpStatus.BAD_REQUEST);
+
+        int change = this.rentalServiceI.payRent(userId, payment);
+        return change >= 0 ?
+                new ResponseEntity<>("The rent is payed. You receive " + change + "€ change", HttpStatus.OK) :
+                new ResponseEntity<>("It's still missing " + (change * -1) + "€", HttpStatus.EXPECTATION_FAILED);
     }
 }
