@@ -9,7 +9,11 @@ import europcar.project.persistence.models.Vehicle;
 import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.*;
 
 import europcar.project.persistence.models.VehicleAtributes.Brand;
+import europcar.project.persistence.models.VehicleAtributes.Color;
+import europcar.project.persistence.models.VehicleAtributes.Type;
 import europcar.project.persistence.repositories.BrandRepository;
+import europcar.project.persistence.repositories.ColorRepository;
+import europcar.project.persistence.repositories.TypeRepository;
 import europcar.project.persistence.repositories.VehicleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,8 +27,8 @@ public class VehicleServiceImp implements VehicleServiceI {
     private final VehicleRepository vehicleRepository;
     private final VehicleConverterImpl vehicleConverter;
     private final BrandRepository brandRepository;
-
-    //private final ColorRepository colorRepository;
+    private final ColorRepository colorRepository;
+    private final TypeRepository typeRepository;
 
     @Override
     public List<VehicleDto> getVehicles() {
@@ -53,11 +57,18 @@ public class VehicleServiceImp implements VehicleServiceI {
         Brand brand = this.brandRepository.findById(vehicleDto.getBrandId())
                 .orElseThrow(() -> new AtributeNotFoundException(ATRIBUTE_NOT_FOUND));
 
+        Color color = this.colorRepository.findById(vehicleDto.getColorId())
+                .orElseThrow(() -> new AtributeNotFoundException(ATRIBUTE_NOT_FOUND));
+
+        Type type = this.typeRepository.findById(vehicleDto.getTypeId())
+                .orElseThrow(() -> new AtributeNotFoundException(ATRIBUTE_NOT_FOUND));
+
         vehicle.setBrand(brand);
+        vehicle.setColor(color);
+        vehicle.setType(type);
         brand.addVehicle(vehicle);
-        //Color color = this.colorR.findById(vehicleDto.getColor()).orElseThrow();
-        //Para o type e o brand também
-        //vehicle.setColor(color);
+        color.addVehicle(vehicle);
+        type.addVehicle(vehicle);
         return vehicleConverter.entityToDto(vehicleRepository.save(vehicle));
     }
 
