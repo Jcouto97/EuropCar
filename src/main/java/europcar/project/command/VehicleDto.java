@@ -35,6 +35,12 @@ public class VehicleDto {
 
     @NotNull
     private Long brandId;
+
+    @NotNull
+    private Long typeId;
+
+    @NotNull
+    private Long colorId;
 //    private Long type; //car/motorbike/boat, etc
 //    private Long color;
     //Em princípio só vamos precisar de um DTO com Long Id's em vez das classes Type, Brand e Color

@@ -2,6 +2,8 @@ package europcar.project.persistence.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import europcar.project.persistence.models.VehicleAtributes.Brand;
+import europcar.project.persistence.models.VehicleAtributes.Color;
+import europcar.project.persistence.models.VehicleAtributes.Type;
 import lombok.*;
 
 import javax.persistence.*;
@@ -45,6 +47,16 @@ public class Vehicle {
     //DETACH em vez de ALL, porque com ALL, ao apagar um vehículo, todos os vehículos com a mesma marca eram apagados
     @JoinColumn(name = "brandId", referencedColumnName = "id")
     private Brand brand;
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    //DETACH em vez de ALL, porque com ALL, ao apagar um vehículo, todos os vehículos com a mesma marca eram apagados
+    @JoinColumn(name = "typeId", referencedColumnName = "id")
+    private Type type;
+
+    @ManyToOne(cascade = CascadeType.DETACH)
+    //DETACH em vez de ALL, porque com ALL, ao apagar um vehículo, todos os vehículos com a mesma marca eram apagados
+    @JoinColumn(name = "colorId", referencedColumnName = "id")
+    private Color color;
 //    private String color;
 //    Classes que só têm um Long id e uma String
 //    A List fica do lado dos vehículos

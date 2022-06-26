@@ -32,6 +32,10 @@ public class VehicleUpdateDto {
 
     private String brand;
 
+    private String type;
+
+    private String color;
+
 //    private String type; //car/motorbike/boat, etc
 //    private String color;
 }
