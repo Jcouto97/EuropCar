@@ -3,9 +3,12 @@ package europcar.project.persistence.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @AllArgsConstructor
@@ -17,7 +20,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
     //commit
     //sdsf
     @Id
@@ -47,5 +50,35 @@ public class User {
     public void addRental(Rental rental) {
         //funçao verifica se isrenting true
         this.rentals.add(rental);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

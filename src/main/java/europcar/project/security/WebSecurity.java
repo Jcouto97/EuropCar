@@ -1,6 +1,6 @@
 package europcar.project.security;
 
-import mindera.mindswap.aveiro.module2.springboot.myfirstapi.services.StudentServiceImpl;
+import europcar.project.services.UserServiceImp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -10,22 +10,22 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import static mindera.mindswap.aveiro.module2.springboot.myfirstapi.security.SecurityConstants.*;
+import static europcar.project.security.SecurityConstants.SIGN_UP_URL;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
-    private StudentServiceImpl userDetailsService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private UserServiceImp userDetailsService;
+    private PasswordEncoder bCryptPasswordEncoder;
 
-    public WebSecurity(StudentServiceImpl userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public WebSecurity(UserServiceImp userService, PasswordEncoder bCryptPasswordEncoder) {
         this.userDetailsService = userService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }

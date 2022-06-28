@@ -5,7 +5,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import europcar.project.persistence.models.User;
 import io.jsonwebtoken.security.Keys;
-import mindera.mindswap.aveiro.module2.springboot.myfirstapi.persistance.models.Student;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,19 +19,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static mindera.mindswap.aveiro.module2.springboot.myfirstapi.security.SecurityConstants.EXPIRATION_TIME;
-import static mindera.mindswap.aveiro.module2.springboot.myfirstapi.security.SecurityConstants.SECRET;
+import static europcar.project.security.SecurityConstants.EXPIRATION_TIME;
+import static europcar.project.security.SecurityConstants.SECRET;
 
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
 
-
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
-
-        //setFilterProcessesUrl('/login'); altera url do login default SB security
+        setFilterProcessesUrl("/login");
     }
 
     @Override
@@ -69,7 +66,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(secretKey())
                 .compact();*/
 
-        String body = ((Student) auth.getPrincipal()).getUsername() + " " + token;
+        String body = ((User) auth.getPrincipal()).getEmail() + " " + token;
 
         res.getWriter().write(body);
         res.getWriter().flush();
