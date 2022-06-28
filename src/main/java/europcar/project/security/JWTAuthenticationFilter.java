@@ -29,7 +29,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
         setFilterProcessesUrl(SIGN_UP_URL + "/login");
-
     }
 
     @Override
@@ -66,7 +65,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(secretKey())
                 .compact();*/
 
-        String body = TOKEN_PREFIX + " " + token;
+        String body = TOKEN_PREFIX + token;
 
         res.getWriter().write(body);
         res.getWriter().flush();

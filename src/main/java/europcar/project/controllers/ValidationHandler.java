@@ -1,5 +1,6 @@
 package europcar.project.controllers;
 
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import europcar.project.exceptions.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,17 +32,5 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
             errors.put(fieldName, message);
         });
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(value = {RentalNotFoundException.class, VehicleNotFoundException.class,
-            UserNotFoundException.class, UserAlreadyExists.class, RentingException.class,
-            AtributeNotFoundException.class, AtributeAttachedException.class, AgencyNotFoundException.class})
-    protected ResponseEntity<Object> notFoundHandler(RuntimeException ex, WebRequest request) {
-        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
-    }
-
-    @ExceptionHandler(value = {SQLIntegrityConstraintViolationException.class})
-    protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
-        return handleExceptionInternal(ex, RESOURCE_ALREADY_EXISTS, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 }

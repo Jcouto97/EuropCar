@@ -35,6 +35,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         //http.cors().disable();
         http.csrf().disable();
         http.authorizeRequests()
+                .antMatchers("/v2/api-docs", "/swagger-resources", "/swagger-resources/**", "/configuration/ui",
+                        "/configuration/security", "/swagger-ui.html", "/webjars/**", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
+                //Portas para permitir acesso no Swagger
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()

@@ -1,6 +1,7 @@
+#login_check:
+#  path: /login_check
 server:
   port: ${SERVER_PORT:8080}
-
 spring:
   output:
     ansi:
@@ -9,9 +10,10 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
+        #dialect: org.hibernate.dialect.MySQL5InnoDBDialect Este serve para ligar as tabelas no workbench
     hibernate:
       ddl-auto: ${HIBERNATE_DDL_AUTO:create-drop}
-#      no final update
+      #no final update
       show-sql: true
   datasource:
     url: ${MARIADB_URL:jdbc:mysql://localhost:3306/EuropCar}
