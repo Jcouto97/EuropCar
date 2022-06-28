@@ -19,8 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import static europcar.project.security.SecurityConstants.EXPIRATION_TIME;
-import static europcar.project.security.SecurityConstants.SECRET;
+import static europcar.project.security.SecurityConstants.*;
 
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -66,7 +65,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(secretKey())
                 .compact();*/
 
-        String body = ((User) auth.getPrincipal()).getEmail() + " " + token;
+        String body = TOKEN_PREFIX + " " + token;
 
         res.getWriter().write(body);
         res.getWriter().flush();

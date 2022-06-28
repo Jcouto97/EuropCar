@@ -28,7 +28,7 @@ public class RentalServiceImp implements RentalServiceI {
     private UserRepository userRepository;
     private VehicleRepository vehicleRepository;
     private AgencyRepository agencyRepository;
-    //ola
+
 
     @Override
     public List<RentalDto> getRentals() {
