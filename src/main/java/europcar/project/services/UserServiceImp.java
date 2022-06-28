@@ -6,14 +6,13 @@ import europcar.project.command.UserUpdateDto;
 import europcar.project.converters.UserConverterImp;
 import europcar.project.exceptions.RentingException;
 import europcar.project.exceptions.UserNotFoundException;
+import europcar.project.exceptions.VehicleNotFoundException;
 import europcar.project.persistence.models.User;
+import europcar.project.persistence.models.Vehicle;
 import europcar.project.persistence.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,12 +21,11 @@ import static europcar.project.exceptions.ExceptionMessages.ExceptionMessages.*;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImp implements UserServiceI, UserDetailsService {
+public class UserServiceImp implements UserServiceI {
     private UserRepository userRepository;
     private UserConverterImp userConverterImp;
     private ModelMapper modelMapper;
     //Para converter os Rentals de cada user, visto que o converter desta classe apenas serve para Users
-    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<UserDto> getUsers() {
@@ -50,7 +48,6 @@ public class UserServiceImp implements UserServiceI, UserDetailsService {
     @Override
     public UserDto signUp(UserDto userDto) {
         User userToSave = userConverterImp.dtoToEntity(userDto);
-        userToSave.setPassword(passwordEncoder.encode(userToSave.getPassword()));
         this.userRepository.save(userToSave);
         return userConverterImp.entityToDto(userToSave);
     }
@@ -68,7 +65,6 @@ public class UserServiceImp implements UserServiceI, UserDetailsService {
     public UserDto updateUser(Long id, UserUpdateDto userUpdateDto) {
         User originalUser = this.userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND));
         User updated = userConverterImp.updateDtoToEntity(userUpdateDto, originalUser);
-        updated.setPassword(passwordEncoder.encode(updated.getPassword()));
         this.userRepository.save(updated);
         return userConverterImp.entityToDto(updated);
     }
@@ -80,13 +76,5 @@ public class UserServiceImp implements UserServiceI, UserDetailsService {
                 .getRentals().stream()
                 .map(rent -> this.modelMapper.map(rent, RentalDto.class))
                 .toList();
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return this.userRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new UsernameNotFoundException(String.format("Username %s not found", email))
-                );
     }
 }
